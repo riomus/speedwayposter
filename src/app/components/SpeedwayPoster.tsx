@@ -137,6 +137,10 @@ export const SpeedwayPoster = forwardRef<
     verticalOffset: "0%",
   };
 
+  const hasHome = !!config.homeTeamName;
+  const hasAway = !!config.awayTeamName;
+  const singleTeamMode = (hasHome && !hasAway) || (!hasHome && hasAway);
+
   const homeWins =
     parseInt(scoreHome || "0") > parseInt(scoreAway || "0");
   const awayWins =
@@ -378,12 +382,13 @@ export const SpeedwayPoster = forwardRef<
               alignItems: "center",
               gap: fs(12),
               lineHeight: 1,
+              width: singleTeamMode ? "100%" : undefined,
             }}
           >
-            {homeLogoId && homeLogoId !== "none" && CLUB_LOGOS_MAP[homeLogoId] && (
-              <img 
-                src={CLUB_LOGOS_MAP[homeLogoId]} 
-                alt="Home Logo" 
+            {hasHome && homeLogoId && homeLogoId !== "none" && CLUB_LOGOS_MAP[homeLogoId] && (
+              <img
+                src={CLUB_LOGOS_MAP[homeLogoId]}
+                alt="Home Logo"
                 style={{
                   marginTop: isExporting ? fs(42) : 0,
                   transform: isExporting ? `translateY(${fs(16)}px)` : "none",
@@ -392,7 +397,7 @@ export const SpeedwayPoster = forwardRef<
                   flexShrink: 0,
                   objectFit: "contain",
                   filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`
-                }} 
+                }}
               />
             )}
             <div
@@ -401,53 +406,64 @@ export const SpeedwayPoster = forwardRef<
                 alignItems: "baseline",
                 gap: fs(8),
                 lineHeight: 1,
+                flex: singleTeamMode ? 1 : undefined,
               }}
             >
-              <span
-                style={{
-                  color: homeWins ? "#f5c518" : "#ffffff",
-                  fontSize: fs(88),
-                  fontWeight: 900,
-                  letterSpacing: "-0.02em",
-                  textShadow: homeWins
-                    ? `0 0 ${fs(30)}px rgba(245,197,24,0.4), 0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`
-                    : `0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`,
-                  lineHeight: 1,
-                }}
-              >
-                {scoreHome || "0"}
-              </span>
-              <span
-                style={{
-                  color: "#1e6db5",
-                  fontSize: fs(70),
-                  fontWeight: 900,
-                  textShadow: `0 0 ${fs(20)}px rgba(30,109,181,0.5)`,
-                  lineHeight: 1,
-                  alignSelf: "center",
-                }}
-              >
-                :
-              </span>
-              <span
-                style={{
-                  color: awayWins ? "#f5c518" : "#ffffff",
-                  fontSize: fs(88),
-                  fontWeight: 900,
-                  letterSpacing: "-0.02em",
-                  textShadow: awayWins
-                    ? `0 0 ${fs(30)}px rgba(245,197,24,0.4), 0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`
-                    : `0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`,
-                  lineHeight: 1,
-                }}
-              >
-                {scoreAway || "0"}
-              </span>
+              {hasHome && (
+                <span
+                  style={{
+                    color: homeWins ? "#f5c518" : "#ffffff",
+                    fontSize: fs(88),
+                    fontWeight: 900,
+                    letterSpacing: "-0.02em",
+                    textShadow: homeWins
+                      ? `0 0 ${fs(30)}px rgba(245,197,24,0.4), 0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`
+                      : `0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`,
+                    lineHeight: 1,
+                    flex: singleTeamMode ? 1 : undefined,
+                    textAlign: singleTeamMode ? "center" as const : undefined,
+                  }}
+                >
+                  {scoreHome || "0"}
+                </span>
+              )}
+              {!singleTeamMode && (
+                <span
+                  style={{
+                    color: "#1e6db5",
+                    fontSize: fs(70),
+                    fontWeight: 900,
+                    textShadow: `0 0 ${fs(20)}px rgba(30,109,181,0.5)`,
+                    lineHeight: 1,
+                    alignSelf: "center",
+                  }}
+                >
+                  :
+                </span>
+              )}
+              {hasAway && (
+                <span
+                  style={{
+                    color: awayWins ? "#f5c518" : "#ffffff",
+                    fontSize: fs(88),
+                    fontWeight: 900,
+                    letterSpacing: "-0.02em",
+                    textShadow: awayWins
+                      ? `0 0 ${fs(30)}px rgba(245,197,24,0.4), 0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`
+                      : `0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`,
+                    lineHeight: 1,
+                    flex: singleTeamMode ? 1 : undefined,
+                    textAlign: singleTeamMode ? "center" as const : undefined,
+                  }}
+                >
+                  {scoreAway || "0"}
+                </span>
+              )}
             </div>
-            {awayLogoId && awayLogoId !== "none" && CLUB_LOGOS_MAP[awayLogoId] && (
-              <img 
-                src={CLUB_LOGOS_MAP[awayLogoId]} 
-                alt="Away Logo" 
+            {hasAway && awayLogoId && awayLogoId !== "none" && CLUB_LOGOS_MAP[awayLogoId] && (
+              <img
+                src={CLUB_LOGOS_MAP[awayLogoId]}
+                alt="Away Logo"
                 style={{
                   marginTop: isExporting ? fs(42) : 0,
                   transform: isExporting ? `translateY(${fs(16)}px)` : "none",
@@ -456,7 +472,7 @@ export const SpeedwayPoster = forwardRef<
                   flexShrink: 0,
                   objectFit: "contain",
                   filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`
-                }} 
+                }}
               />
             )}
           </div>
@@ -545,73 +561,79 @@ export const SpeedwayPoster = forwardRef<
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: singleTeamMode ? "center" : "space-between",
               width: "100%",
               marginBottom: fs(18),
               gap: fs(16),
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: fs(8), flex: 1 }}>
-              {homeLogoId && homeLogoId !== "none" && CLUB_LOGOS_MAP[homeLogoId] && (
-                <img 
-                  src={CLUB_LOGOS_MAP[homeLogoId]} 
-                  alt="Home Logo" 
-                  style={{
-                    height: fs(90),
-                    width: "auto",
-                    objectFit: "contain",
-                    filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`
-                  }} 
-                />
-              )}
-              <div style={{
-                color: "#ffffff",
-                fontSize: fs(24),
-                fontWeight: 900,
-                textAlign: "center",
-                lineHeight: 1.1,
-                textTransform: "uppercase",
-                textShadow: `0 ${fs(2)}px ${fs(10)}px rgba(0,0,0,0.9)`,
-              }}>
-                {homeTeamName}
+            {hasHome && (
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: fs(8), flex: 1 }}>
+                {homeLogoId && homeLogoId !== "none" && CLUB_LOGOS_MAP[homeLogoId] && (
+                  <img
+                    src={CLUB_LOGOS_MAP[homeLogoId]}
+                    alt="Home Logo"
+                    style={{
+                      height: fs(90),
+                      width: "auto",
+                      objectFit: "contain",
+                      filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`
+                    }}
+                  />
+                )}
+                <div style={{
+                  color: "#ffffff",
+                  fontSize: fs(24),
+                  fontWeight: 900,
+                  textAlign: "center",
+                  lineHeight: 1.1,
+                  textTransform: "uppercase",
+                  textShadow: `0 ${fs(2)}px ${fs(10)}px rgba(0,0,0,0.9)`,
+                }}>
+                  {homeTeamName}
+                </div>
               </div>
-            </div>
-            
-            <div style={{ 
-              color: "#1e6db5", 
-              fontSize: fs(40), 
-              fontWeight: 900, 
-              textShadow: `0 0 ${fs(20)}px rgba(30,109,181,0.5)`,
-              marginTop: `-${fs(30)}px`,
-            }}>
-              VS
-            </div>
+            )}
 
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: fs(8), flex: 1 }}>
-              {awayLogoId && awayLogoId !== "none" && CLUB_LOGOS_MAP[awayLogoId] && (
-                <img 
-                  src={CLUB_LOGOS_MAP[awayLogoId]} 
-                  alt="Away Logo" 
-                  style={{
-                    height: fs(90),
-                    width: "auto",
-                    objectFit: "contain",
-                    filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`
-                  }} 
-                />
-              )}
+            {!singleTeamMode && (
               <div style={{
-                color: "#f5c518",
-                fontSize: fs(24),
+                color: "#1e6db5",
+                fontSize: fs(40),
                 fontWeight: 900,
-                textAlign: "center",
-                lineHeight: 1.1,
-                textTransform: "uppercase",
-                textShadow: `0 ${fs(2)}px ${fs(10)}px rgba(0,0,0,0.9)`,
+                textShadow: `0 0 ${fs(20)}px rgba(30,109,181,0.5)`,
+                marginTop: `-${fs(30)}px`,
               }}>
-                {awayTeamName}
+                VS
               </div>
-            </div>
+            )}
+
+            {hasAway && (
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: fs(8), flex: 1 }}>
+                {awayLogoId && awayLogoId !== "none" && CLUB_LOGOS_MAP[awayLogoId] && (
+                  <img
+                    src={CLUB_LOGOS_MAP[awayLogoId]}
+                    alt="Away Logo"
+                    style={{
+                      height: fs(90),
+                      width: "auto",
+                      objectFit: "contain",
+                      filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`
+                    }}
+                  />
+                )}
+                <div style={{
+                  color: "#f5c518",
+                  fontSize: fs(24),
+                  fontWeight: 900,
+                  textAlign: "center",
+                  lineHeight: 1.1,
+                  textTransform: "uppercase",
+                  textShadow: `0 ${fs(2)}px ${fs(10)}px rgba(0,0,0,0.9)`,
+                }}>
+                  {awayTeamName}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
