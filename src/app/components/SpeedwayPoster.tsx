@@ -100,6 +100,7 @@ export interface PosterConfig {
   layoutId?: string;
   homeTeamName?: string;
   awayTeamName?: string;
+  aspectRatio?: string;
 }
 
 interface SpeedwayPosterProps {
@@ -126,6 +127,7 @@ export const SpeedwayPoster = forwardRef<
     layoutId = "wynik",
     homeTeamName = "GOSPODARZE",
     awayTeamName = "GOŚCIE",
+    aspectRatio = "9:16",
   } = config;
 
   const riderImg =
@@ -150,8 +152,16 @@ export const SpeedwayPoster = forwardRef<
 
 
 
-  const w = 540 * scale;
-  const h = 960 * scale;
+  const BASE_W = 540;
+  const ASPECT_HEIGHTS: Record<string, number> = {
+    "9:16": 960,
+    "1:1": 540,
+    "4:5": 675,
+  };
+  const baseH = ASPECT_HEIGHTS[aspectRatio] || 960;
+
+  const w = BASE_W * scale;
+  const h = baseH * scale;
   const fs = (n: number) => n * scale;
 
   return (

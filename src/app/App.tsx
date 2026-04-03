@@ -576,6 +576,16 @@ export default function App() {
                   { id: "match_day", label: "Zapowiedź (Match Day)" },
                 ]}
               />
+              <SelectField
+                label="Proporcje"
+                value={config.aspectRatio || "9:16"}
+                onChange={(v) => update("aspectRatio", v)}
+                options={[
+                  { id: "9:16", label: "9:16 (Story)" },
+                  { id: "1:1", label: "1:1 (Kwadrat)" },
+                  { id: "4:5", label: "4:5 (Instagram)" },
+                ]}
+              />
             </div>
 
             {/* Scores section */}
