@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useCallback, useRef, useState } from "react";
 import logoImg from "../../assets/7e44f37685ad3f3cf69ea7a3d89ed6e9c1d46460.png";
 import riderImg1 from "../../assets/a9f444eda0b68d242315e46ad4c961ed74f42334.png";
 import riderImg2 from "../../assets/633cb56e126361bd8bafb54b2dc4059b83ba5b67.png";
@@ -85,6 +85,16 @@ export interface Heat {
   scoreHome: string;
 }
 
+export interface CustomText {
+  id: string;
+  text: string;
+  x: number; // percentage 0-100
+  y: number; // percentage 0-100
+  fontSize: number;
+  color: string;
+  fontWeight: number;
+}
+
 export interface PosterConfig {
   teamName: string;
   scoreHome: string;
@@ -101,18 +111,99 @@ export interface PosterConfig {
   homeTeamName?: string;
   awayTeamName?: string;
   aspectRatio?: string;
+  customTexts?: CustomText[];
 }
 
 interface SpeedwayPosterProps {
   config: PosterConfig;
   scale?: number;
   isExporting?: boolean;
+  onCustomTextMove?: (id: string, x: number, y: number) => void;
+}
+
+function DraggableText({
+  ct,
+  scale,
+  posterWidth,
+  posterHeight,
+  fs,
+  onMove,
+  isExporting,
+}: {
+  ct: CustomText;
+  scale: number;
+  posterWidth: number;
+  posterHeight: number;
+  fs: (n: number) => number;
+  onMove?: (id: string, x: number, y: number) => void;
+  isExporting: boolean;
+}) {
+  const dragRef = useRef<{ startX: number; startY: number; origX: number; origY: number } | null>(null);
+
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      if (isExporting || !onMove) return;
+      e.preventDefault();
+      e.stopPropagation();
+      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      dragRef.current = {
+        startX: e.clientX,
+        startY: e.clientY,
+        origX: ct.x,
+        origY: ct.y,
+      };
+    },
+    [ct.x, ct.y, isExporting, onMove],
+  );
+
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      if (!dragRef.current || !onMove) return;
+      const dx = e.clientX - dragRef.current.startX;
+      const dy = e.clientY - dragRef.current.startY;
+      const newX = dragRef.current.origX + (dx / posterWidth) * 100;
+      const newY = dragRef.current.origY + (dy / posterHeight) * 100;
+      onMove(ct.id, Math.max(0, Math.min(100, newX)), Math.max(0, Math.min(100, newY)));
+    },
+    [ct.id, posterWidth, posterHeight, onMove],
+  );
+
+  const handlePointerUp = useCallback(() => {
+    dragRef.current = null;
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: `${ct.x}%`,
+        top: `${ct.y}%`,
+        color: ct.color,
+        fontSize: fs(ct.fontSize),
+        fontWeight: ct.fontWeight,
+        fontFamily: "'Barlow Condensed', 'Oswald', sans-serif",
+        textTransform: "uppercase",
+        letterSpacing: "0.08em",
+        lineHeight: 1.1,
+        textShadow: `0 ${fs(2)}px ${fs(8)}px rgba(0,0,0,0.8)`,
+        cursor: isExporting ? "default" : "move",
+        userSelect: "none",
+        whiteSpace: "nowrap",
+        zIndex: 10,
+      }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+    >
+      {ct.text}
+    </div>
+  );
 }
 
 export const SpeedwayPoster = forwardRef<
   HTMLDivElement,
   SpeedwayPosterProps
->(({ config, scale = 1, isExporting = false }, ref) => {
+>(({ config, scale = 1, isExporting = false, onCustomTextMove }, ref) => {
   const {
     teamName,
     scoreHome,
@@ -763,6 +854,20 @@ export const SpeedwayPoster = forwardRef<
           />
         ))}
       </svg>
+
+      {/* === CUSTOM TEXTS === */}
+      {(config.customTexts || []).map((ct) => (
+        <DraggableText
+          key={ct.id}
+          ct={ct}
+          scale={scale}
+          posterWidth={w}
+          posterHeight={h}
+          fs={fs}
+          onMove={onCustomTextMove}
+          isExporting={isExporting}
+        />
+      ))}
 
       {/* === DECORATIVE: bottom accent bar === */}
       <div

@@ -7,11 +7,13 @@ import {
   Settings,
   Eye,
   Image,
+  Type,
 } from "lucide-react";
 import {
   SpeedwayPoster,
   PosterConfig,
   Heat,
+  CustomText,
 } from "./components/SpeedwayPoster";
 import "../styles/fonts.css";
 import bgThumb1 from "../assets/a9f444eda0b68d242315e46ad4c961ed74f42334.png";
@@ -71,6 +73,7 @@ const defaultConfig: PosterConfig = {
   homeLogoId: "none",
   awayLogoId: "none",
   layoutId: "wynik",
+  customTexts: [],
 };
 
 function generateId() {
@@ -295,6 +298,52 @@ export default function App() {
     }));
   }, []);
 
+  const addCustomText = useCallback(() => {
+    setConfig((c) => ({
+      ...c,
+      customTexts: [
+        ...(c.customTexts || []),
+        {
+          id: generateId(),
+          text: "TEKST",
+          x: 50,
+          y: 50,
+          fontSize: 24,
+          color: "#ffffff",
+          fontWeight: 800,
+        },
+      ],
+    }));
+  }, []);
+
+  const updateCustomText = useCallback(
+    (id: string, field: keyof CustomText, value: string | number) => {
+      setConfig((c) => ({
+        ...c,
+        customTexts: (c.customTexts || []).map((ct) =>
+          ct.id === id ? { ...ct, [field]: value } : ct,
+        ),
+      }));
+    },
+    [],
+  );
+
+  const removeCustomText = useCallback((id: string) => {
+    setConfig((c) => ({
+      ...c,
+      customTexts: (c.customTexts || []).filter((ct) => ct.id !== id),
+    }));
+  }, []);
+
+  const moveCustomText = useCallback((id: string, x: number, y: number) => {
+    setConfig((c) => ({
+      ...c,
+      customTexts: (c.customTexts || []).map((ct) =>
+        ct.id === id ? { ...ct, x, y } : ct,
+      ),
+    }));
+  }, []);
+
   const handleExport = async () => {
     if (!posterRef.current) return;
     setExporting(true);
@@ -510,6 +559,7 @@ export default function App() {
                 config={config}
                 scale={1}
                 isExporting={exporting}
+                onCustomTextMove={moveCustomText}
               />
             </div>
 
@@ -1002,6 +1052,240 @@ export default function App() {
                 onChange={(v) => update("hashtag", v)}
                 placeholder="MISIEKRACING"
               />
+            </div>
+
+            {/* Custom texts section */}
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 12,
+                }}
+              >
+                <SectionTitle>Własny tekst</SectionTitle>
+                <button
+                  onClick={addCustomText}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "5px 10px",
+                    borderRadius: 6,
+                    border: "1px solid rgba(30,109,181,0.4)",
+                    background: "rgba(30,109,181,0.12)",
+                    color: "#2e8de0",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                  }}
+                >
+                  <Type size={13} />
+                  Dodaj tekst
+                </button>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                }}
+              >
+                {(config.customTexts || []).map((ct, idx) => (
+                  <div
+                    key={ct.id}
+                    style={{
+                      background: "rgba(255,255,255,0.03)",
+                      border: "1px solid rgba(30,109,181,0.15)",
+                      borderRadius: 8,
+                      padding: "10px 12px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#f5c518",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Tekst {idx + 1}
+                      </span>
+                      <button
+                        onClick={() => removeCustomText(ct.id)}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "#6b3030",
+                          padding: 2,
+                          borderRadius: 4,
+                          display: "flex",
+                          alignItems: "center",
+                          transition: "color 0.2s",
+                        }}
+                        onMouseEnter={(e) =>
+                          ((e.currentTarget as HTMLElement).style.color = "#e05050")
+                        }
+                        onMouseLeave={(e) =>
+                          ((e.currentTarget as HTMLElement).style.color = "#6b3030")
+                        }
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                    <Field
+                      label="Treść"
+                      value={ct.text}
+                      onChange={(v) => updateCustomText(ct.id, "text", v)}
+                      placeholder="Wpisz tekst..."
+                    />
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: 8,
+                      }}
+                    >
+                      <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                        <label
+                          style={{
+                            color: "#9ab8d8",
+                            fontSize: 10,
+                            fontWeight: 600,
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            fontFamily: "'Barlow Condensed', sans-serif",
+                          }}
+                        >
+                          Rozmiar
+                        </label>
+                        <input
+                          type="range"
+                          min={10}
+                          max={80}
+                          value={ct.fontSize}
+                          onChange={(e) =>
+                            updateCustomText(ct.id, "fontSize", parseInt(e.target.value))
+                          }
+                          style={{ width: "100%", accentColor: "#1e6db5" }}
+                        />
+                        <span style={{ color: "#6b8aaa", fontSize: 11, textAlign: "center" }}>
+                          {ct.fontSize}px
+                        </span>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                        <label
+                          style={{
+                            color: "#9ab8d8",
+                            fontSize: 10,
+                            fontWeight: 600,
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            fontFamily: "'Barlow Condensed', sans-serif",
+                          }}
+                        >
+                          Grubość
+                        </label>
+                        <input
+                          type="range"
+                          min={100}
+                          max={900}
+                          step={100}
+                          value={ct.fontWeight}
+                          onChange={(e) =>
+                            updateCustomText(ct.id, "fontWeight", parseInt(e.target.value))
+                          }
+                          style={{ width: "100%", accentColor: "#1e6db5" }}
+                        />
+                        <span style={{ color: "#6b8aaa", fontSize: 11, textAlign: "center" }}>
+                          {ct.fontWeight}
+                        </span>
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                      <label
+                        style={{
+                          color: "#9ab8d8",
+                          fontSize: 10,
+                          fontWeight: 600,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          fontFamily: "'Barlow Condensed', sans-serif",
+                        }}
+                      >
+                        Kolor
+                      </label>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                        {["#ffffff", "#f5c518", "#1e6db5", "#2e8de0", "#ff4444", "#00ff88"].map(
+                          (color) => (
+                            <button
+                              key={color}
+                              onClick={() => updateCustomText(ct.id, "color", color)}
+                              style={{
+                                width: 28,
+                                height: 28,
+                                borderRadius: 6,
+                                border:
+                                  ct.color === color
+                                    ? "2px solid #fff"
+                                    : "2px solid rgba(255,255,255,0.15)",
+                                background: color,
+                                cursor: "pointer",
+                                transition: "border-color 0.2s",
+                              }}
+                            />
+                          ),
+                        )}
+                        <input
+                          type="color"
+                          value={ct.color}
+                          onChange={(e) => updateCustomText(ct.id, "color", e.target.value)}
+                          style={{
+                            width: 28,
+                            height: 28,
+                            border: "2px solid rgba(255,255,255,0.15)",
+                            borderRadius: 6,
+                            background: "none",
+                            cursor: "pointer",
+                            padding: 0,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {(config.customTexts || []).length === 0 && (
+                  <div
+                    style={{
+                      textAlign: "center",
+                      color: "#3a5a7a",
+                      fontSize: 13,
+                      padding: "12px 0",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Przeciągnij tekst na plakacie aby zmienić pozycję.
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Divider */}
