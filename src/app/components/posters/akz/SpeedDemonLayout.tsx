@@ -222,63 +222,6 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           }}
         />
 
-        {/* === YELLOW SPEED STREAKS (diagonal lines) === */}
-        <svg
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.15,
-          }}
-        >
-          {/* Multiple diagonal speed lines */}
-          <line x1="0" y1="30%" x2="100%" y2="20%" stroke={COLORS.YELLOW} strokeWidth={fs(2)} />
-          <line x1="0" y1="35%" x2="100%" y2="25%" stroke={COLORS.YELLOW} strokeWidth={fs(3)} />
-          <line x1="0" y1="40%" x2="100%" y2="30%" stroke={COLORS.YELLOW} strokeWidth={fs(1.5)} />
-          <line x1="0" y1="50%" x2="100%" y2="40%" stroke={COLORS.YELLOW} strokeWidth={fs(2.5)} />
-          <line x1="0" y1="55%" x2="100%" y2="45%" stroke={COLORS.YELLOW} strokeWidth={fs(1)} />
-          <line x1="0" y1="65%" x2="100%" y2="55%" stroke={COLORS.YELLOW} strokeWidth={fs(2)} />
-          <line x1="0" y1="70%" x2="100%" y2="60%" stroke={COLORS.YELLOW} strokeWidth={fs(1.5)} />
-        </svg>
-
-        {/* === MOTION LINES from top-right === */}
-        <svg
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            width: "60%",
-            height: "30%",
-            opacity: 0.3,
-          }}
-        >
-          {/* Red motion lines */}
-          {[...Array(8)].map((_, i) => (
-            <line
-              key={`red-${i}`}
-              x1="100%"
-              y1="0"
-              x2={`${20 + i * 10}%`}
-              y2="100%"
-              stroke={COLORS.RED}
-              strokeWidth={fs(3 - i * 0.3)}
-            />
-          ))}
-          {/* Yellow motion lines */}
-          {[...Array(6)].map((_, i) => (
-            <line
-              key={`yellow-${i}`}
-              x1="100%"
-              y1="10%"
-              x2={`${30 + i * 8}%`}
-              y2="100%"
-              stroke={COLORS.YELLOW}
-              strokeWidth={fs(2 - i * 0.2)}
-            />
-          ))}
-        </svg>
-
         {/* === TOP SECTION: Logo Left === */}
         <div
           style={{

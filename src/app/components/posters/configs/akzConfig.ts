@@ -23,7 +23,7 @@ const defaultConfig: PosterConfig = {
   backgroundImageId: "1",
   homeLogoId: "none",
   awayLogoId: "none",
-  layoutId: "bold_striker",
+  layoutId: "speed_demon",
   aspectRatio: "9:16",
   customTexts: [],
 };
@@ -36,8 +36,6 @@ export const akzConfig: RiderConfig = {
     { id: "1", label: "AKŻ Background", thumb: bgThumb1 },
   ],
   layouts: [
-    { id: "bold_striker", label: "Bold Striker" },
-    { id: "clean_power", label: "Clean Power" },
     { id: "speed_demon", label: "Speed Demon" },
   ],
   logoPath: "logos/akż/logo.png",
