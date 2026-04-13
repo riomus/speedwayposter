@@ -401,7 +401,9 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 <div
                   key={heat.id}
                   style={{
-                    background: `linear-gradient(135deg, rgba(220, 38, 38, 0.13) 0%, rgba(0, 0, 0, 0.87) 100%)`,
+                    background: isExporting
+                      ? 'rgba(0, 0, 0, 0.85)'
+                      : `linear-gradient(135deg, rgba(220, 38, 38, 0.13) 0%, rgba(0, 0, 0, 0.87) 100%)`,
                     border: `${fs(2)}px solid rgba(220, 38, 38, 0.4)`,
                     borderRadius: fs(8),
                     padding: fs(10),
