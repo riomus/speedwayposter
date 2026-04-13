@@ -60,11 +60,14 @@ const getLogoFilter = (sponsorPath: string) => {
   // Extract filename from path
   const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
 
-  // Logos that need grayscale instead of binary white
-  const grayscaleLogos = ['mcs.png', 'rrspeedway.png', 'wts.png'];
+  // rrspeedway has gray background - needs special treatment
+  if (filename.includes('rrspeedway.png')) {
+    // Blow out gray background to white while keeping dark text
+    return 'grayscale(1) brightness(1.8) contrast(2)';
+  }
 
-  if (grayscaleLogos.some(gray => filename.includes(gray.toLowerCase()))) {
-    // For specific logos: use grayscale
+  // Other grayscale logos (mcs, wts)
+  if (filename.includes('mcs.png') || filename.includes('wts.png')) {
     return 'grayscale(1) contrast(1.2)';
   }
 
