@@ -55,22 +55,6 @@ const COLORS = {
   BLACK: "#000000",
 };
 
-// Helper function for conditional logo filtering
-const getLogoFilter = (sponsorPath: string) => {
-  // Extract filename from path
-  const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
-
-  // Problematic logos that are already dark/black
-  const darkLogos = ['mcs.png', 'rrspeedway.png', 'haj.png', 'wts.png'];
-
-  if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
-    // For dark logos: don't invert, just brighten
-    return 'brightness(3) contrast(1.2)';
-  }
-
-  // For other logos: use standard white filter
-  return 'brightness(0) invert(1)';
-};
 
 function DraggableText({
   ct,
@@ -497,18 +481,20 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: fs(8),
+                  overflow: "hidden",
+                  padding: fs(6),
                 }}
               >
                 <img
                   src={sponsor}
                   alt={`Sponsor ${idx + 1}`}
                   style={{
+                    width: "100%",
                     height: fs(70),
-                    width: "auto",
-                    maxWidth: "100%",
-                    objectFit: "contain",
-                    filter: getLogoFilter(sponsor),
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    filter: "grayscale(1) contrast(1.1)",
+                    transform: "scale(1.15)",
                   }}
                 />
               </div>
