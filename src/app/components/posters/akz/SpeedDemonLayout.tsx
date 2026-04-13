@@ -424,6 +424,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                       color: COLORS.YELLOW,
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
+                      textAlign: "center",
                     }}
                   >
                     {heat.name}
@@ -435,6 +436,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                       color: COLORS.WHITE,
                       lineHeight: 1,
                       textShadow: isExporting ? 'none' : `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
+                      textAlign: "center",
                     }}
                   >
                     {heat.scoreHome}
