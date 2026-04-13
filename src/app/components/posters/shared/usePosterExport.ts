@@ -1,5 +1,5 @@
 import { useState, RefObject } from "react";
-import domtoimage from "dom-to-image-more";
+import html2canvas from "html2canvas";
 
 export function usePosterExport() {
   const [exporting, setExporting] = useState(false);
@@ -12,13 +12,19 @@ export function usePosterExport() {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
-      const dataUrl = await domtoimage.toPng(ref.current, {
-        quality: 1.0,
+      const canvas = await html2canvas(ref.current, {
+        scale: 1,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        logging: false,
+        windowWidth: ref.current.scrollWidth,
+        windowHeight: ref.current.scrollHeight,
       });
 
       const link = document.createElement("a");
       link.download = filename;
-      link.href = dataUrl;
+      link.href = canvas.toDataURL("image/png");
       link.click();
     } catch (err) {
       console.error("Export error:", err);

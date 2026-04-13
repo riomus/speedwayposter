@@ -227,7 +227,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             alt="AKŻ Logo"
             style={{
               height: fs(60),
-              filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))",
+              filter: isExporting ? "none" : "drop-shadow(0 2px 8px rgba(0,0,0,0.6))",
             }}
           />
 
@@ -291,7 +291,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 style={{
                   height: fs(50),
                   marginBottom: fs(10),
-                  filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.9))",
+                  filter: isExporting ? "none" : "drop-shadow(0 4px 12px rgba(0,0,0,0.9))",
                 }}
               />
             )}
@@ -347,7 +347,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   style={{
                     height: fs(50),
                     marginBottom: fs(10),
-                    filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.9))",
+                    filter: isExporting ? "none" : "drop-shadow(0 4px 12px rgba(0,0,0,0.9))",
                   }}
                 />
               )}
@@ -407,8 +407,8 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                     padding: fs(10),
                     textAlign: "center",
                     // Stagger every other heat
-                    transform: idx % 2 === 0 ? `translateY(${fs(-5)}) rotate(-1deg)` : `translateY(${fs(5)}) rotate(1deg)`,
-                    boxShadow: `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.6)`,
+                    transform: isExporting ? undefined : (idx % 2 === 0 ? `translateY(${fs(-5)}) rotate(-1deg)` : `translateY(${fs(5)}) rotate(1deg)`),
+                    boxShadow: isExporting ? 'none' : `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.6)`,
                   }}
                 >
                   <div
