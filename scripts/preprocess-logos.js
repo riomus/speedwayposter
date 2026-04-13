@@ -51,22 +51,22 @@ async function processLogo(filename) {
 
     if (rule) {
       if (rule.type === 'invert-grayscale') {
-        // Invert colors then convert to grayscale
+        // Invert colors then convert to grayscale with brightness boost
         pipeline = pipeline
           .negate({ alpha: false })
           .greyscale()
+          .linear(rule.contrast, -(128 * rule.contrast - 128))
           .modulate({
             brightness: rule.brightness,
-          })
-          .linear(rule.contrast, -(128 * rule.contrast - 128));
+          });
       } else if (rule.type === 'grayscale') {
         // Just grayscale with brightness/contrast
         pipeline = pipeline
           .greyscale()
+          .linear(rule.contrast, -(128 * rule.contrast - 128))
           .modulate({
             brightness: rule.brightness,
-          })
-          .linear(rule.contrast, -(128 * rule.contrast - 128));
+          });
       }
     } else {
       // Default: make it white (black then invert)
