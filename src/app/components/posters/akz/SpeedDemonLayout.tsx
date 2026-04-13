@@ -66,8 +66,13 @@ const getLogoFilter = (sponsorPath: string) => {
     return 'grayscale(1) brightness(1.8) contrast(2)';
   }
 
-  // Other grayscale logos (mcs, wts)
-  if (filename.includes('mcs.png') || filename.includes('wts.png')) {
+  // mcs has white corners - invert first to make them black, then grayscale
+  if (filename.includes('mcs.png')) {
+    return 'invert(1) grayscale(1) contrast(1.3)';
+  }
+
+  // Other grayscale logos (haj, wts)
+  if (filename.includes('haj.png') || filename.includes('wts.png')) {
     return 'grayscale(1) contrast(1.2)';
   }
 
