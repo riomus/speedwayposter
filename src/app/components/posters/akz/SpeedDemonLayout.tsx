@@ -409,7 +409,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           <div
             style={{
               position: "absolute",
-              top: fs(420),
+              top: fs(aspectRatio === "1:1" ? 310 : aspectRatio === "4:5" ? 370 : 420),
               left: fs(25),
               right: fs(25),
               zIndex: 5,
@@ -517,7 +517,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   src={sponsor}
                   alt={`Sponsor ${idx + 1}`}
                   style={{
-                    height: fs(50),
+                    height: fs(35),
                     width: "auto",
                     maxWidth: "100%",
                     objectFit: "contain",
