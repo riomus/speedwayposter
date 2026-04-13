@@ -407,7 +407,10 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                     border: `${fs(2)}px solid rgba(220, 38, 38, 0.4)`,
                     borderRadius: fs(8),
                     padding: fs(10),
-                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
                     // Stagger every other heat
                     transform: isExporting ? undefined : (idx % 2 === 0 ? `translateY(${fs(-5)}) rotate(-1deg)` : `translateY(${fs(5)}) rotate(1deg)`),
                     boxShadow: isExporting ? 'none' : `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.6)`,
@@ -421,8 +424,6 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                       textTransform: "uppercase",
                       marginBottom: fs(4),
                       letterSpacing: "0.05em",
-                      textAlign: "center",
-                      width: "100%",
                     }}
                   >
                     {heat.name}
@@ -434,8 +435,6 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                       color: COLORS.WHITE,
                       lineHeight: 1,
                       textShadow: isExporting ? 'none' : `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
-                      textAlign: "center",
-                      width: "100%",
                     }}
                   >
                     {heat.scoreHome}
