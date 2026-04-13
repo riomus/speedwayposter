@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/speedwayposter/:path*",
+      "destination": "/speedwayposter/index.html"
+    }
+  ]
+}
