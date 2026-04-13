@@ -9,6 +9,7 @@ import { akzConfig } from "../components/posters/configs/akzConfig";
 export default function AkzPage() {
   const [activeTab, setActiveTab] = useState<"preview" | "config">("preview");
   const posterRef = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
 
   const {
     config,
@@ -26,7 +27,7 @@ export default function AkzPage() {
   const { exporting, exportPoster } = usePosterExport();
 
   const handleExport = async () => {
-    await exportPoster(posterRef, `${config.teamName.replace(/\s+/g, "_")}_wyniki.png`);
+    await exportPoster(exportRef, `${config.teamName.replace(/\s+/g, "_")}_wyniki.png`);
   };
 
   return (
@@ -203,7 +204,7 @@ export default function AkzPage() {
                 overflow: "hidden",
               }}
             >
-              <AkzPoster ref={posterRef} config={config} scale={exporting ? 4 : 1} isExporting={exporting} onCustomTextMove={moveCustomText} />
+              <AkzPoster ref={posterRef} config={config} scale={1} isExporting={false} onCustomTextMove={moveCustomText} />
             </div>
 
             <div
@@ -246,6 +247,19 @@ export default function AkzPage() {
             setConfig={setConfig}
           />
         </div>
+      </div>
+
+      {/* Hidden export element at 4x scale */}
+      <div
+        style={{
+          position: "fixed",
+          top: -99999,
+          left: -99999,
+          visibility: exporting ? "visible" : "hidden",
+          pointerEvents: "none",
+        }}
+      >
+        <AkzPoster ref={exportRef} config={config} scale={4} isExporting={true} />
       </div>
     </div>
   );
