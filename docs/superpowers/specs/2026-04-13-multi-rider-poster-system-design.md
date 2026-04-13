@@ -28,11 +28,17 @@ Transform the single-rider MISIEK speedway poster generator into a multi-rider s
 
 ### Routing
 
+**Note:** react-router is already installed as a dependency.
+
 - `/` → Redirects to `/misiek` (default)
 - `/misiek` → MisiekPage component
 - `/akz` → AkzPage component
 
+**Implementation:** Refactor existing `src/app/App.tsx` to use BrowserRouter with route definitions. The current single-page App.tsx will become the router setup file.
+
 ### Project Structure
+
+**Note:** All asset paths are relative to `src/assets/` root directory (Vite convention).
 
 ```
 src/
@@ -57,17 +63,17 @@ src/
 │   │   ├── MisiekPage.tsx                # /misiek route
 │   │   ├── AkzPage.tsx                   # /akz route
 │   │   └── RootRedirect.tsx              # / redirect handler
-│   └── App.tsx                           # Router setup
-├── assets/
-│   ├── misiek/                           # Organize existing assets
-│   │   ├── backgrounds/
-│   │   ├── logo.png
-│   │   └── sponsors/
+│   └── App.tsx                           # Refactored to router setup
+├── assets/                               # Root: src/assets/
+│   ├── misiek/                           # Reorganized existing assets
+│   │   ├── backgrounds/                  # Move existing bg images here
+│   │   ├── logo.png                      # Current: 7e44f...png
+│   │   └── sponsors/                     # Move existing sponsors here
 │   └── akz/
 │       ├── backgrounds/
-│       │   └── 1.png
-│       ├── logo.png
-│       └── sponsors/                     # 9 sponsor logos
+│       │   └── 1.png                     # Existing: bg/akz/1.png
+│       ├── logo.png                      # Existing: logos/akż/logo.png
+│       └── sponsors/                     # From logos/akż/ folder
 ```
 
 ## Data Model
@@ -117,6 +123,29 @@ export interface PosterProps {
   scale?: number;
   isExporting?: boolean;
   onCustomTextMove?: (id: string, x: number, y: number) => void;
+}
+
+export interface BackgroundOption {
+  id: string;
+  label: string;
+  thumb: string;  // Import path to thumbnail
+}
+
+export interface LayoutOption {
+  id: string;
+  label: string;
+}
+
+export interface RiderConfig {
+  riderId: string;                    // 'misiek' | 'akz'
+  riderName: string;                  // Display name
+  defaultConfig: PosterConfig;        // Default poster config
+  backgrounds: BackgroundOption[];    // Available background images
+  layouts: LayoutOption[];            // Available layout options
+  logoPath: string;                   // Path to rider logo
+  sponsorPaths: string[];             // Array of sponsor image paths
+  primaryColor: string;               // Primary brand color
+  accentColor: string;                // Accent/highlight color
 }
 ```
 
@@ -240,6 +269,8 @@ export const AkzPoster = forwardRef<HTMLDivElement, PosterProps>(
 
 All three layouts use AKŻ brand colors: **Red (#DC2626), Yellow (#FBBF24), White (#FFFFFF), Black (#000000)**
 
+**Sponsor Footer:** All layouts use pure black background (#000000) for sponsor footer with white-filtered logos (`filter: brightness(0) invert(1)`)
+
 #### 1. Bold Striker Layout
 
 **Visual Style:** Aggressive diagonal design with sharp angles
@@ -295,63 +326,91 @@ All three layouts use AKŻ brand colors: **Red (#DC2626), Yellow (#FBBF24), Whit
 
 ## Asset Management
 
+**Note:** All paths below are relative to `src/assets/` directory. During implementation, assets will be reorganized into rider-specific folders for clarity.
+
 ### MISIEK Assets
 
-**Logo:** `assets/7e44f37685ad3f3cf69ea7a3d89ed6e9c1d46460.png`
+**Current location → Target location after reorganization:**
+
+**Logo:**
+- Current: `src/assets/7e44f37685ad3f3cf69ea7a3d89ed6e9c1d46460.png`
+- Target: `src/assets/misiek/logo.png`
 
 **Backgrounds (9 total):**
-- assets/a9f444eda0b68d242315e46ad4c961ed74f42334.png (bg1)
-- assets/633cb56e126361bd8bafb54b2dc4059b83ba5b67.png (bg2)
-- assets/a58ea5c412dbad40193fcd735703fe4be406ebd5.png (bg3)
-- assets/5bb7d630512919f24bd2c3a692eb7f93e17f393a.png (bg4)
-- assets/bg/bg5.png
-- assets/bg/bg6.png
-- assets/bg/bg7.png
-- assets/bg/bg8.png
-- assets/bg/bg9.png
+- Current locations:
+  - `src/assets/a9f444eda0b68d242315e46ad4c961ed74f42334.png` → `src/assets/misiek/backgrounds/1.png`
+  - `src/assets/633cb56e126361bd8bafb54b2dc4059b83ba5b67.png` → `src/assets/misiek/backgrounds/2.png`
+  - `src/assets/a58ea5c412dbad40193fcd735703fe4be406ebd5.png` → `src/assets/misiek/backgrounds/3.png`
+  - `src/assets/5bb7d630512919f24bd2c3a692eb7f93e17f393a.png` → `src/assets/misiek/backgrounds/4.png`
+  - `src/assets/bg/bg5.png` → `src/assets/misiek/backgrounds/5.png`
+  - `src/assets/bg/bg6.png` → `src/assets/misiek/backgrounds/6.png`
+  - `src/assets/bg/bg7.png` → `src/assets/misiek/backgrounds/7.png`
+  - `src/assets/bg/bg8.png` → `src/assets/misiek/backgrounds/8.png`
+  - `src/assets/bg/bg9.png` → `src/assets/misiek/backgrounds/9.png`
 
 **Sponsors (4):**
-- assets/sponsors/f2.png
-- assets/sponsors/arche_hotel.png
-- assets/sponsors/logo_brand_claim.png
-- assets/sponsors/wrobel.png
+- Current: `src/assets/sponsors/`
+- Target: `src/assets/misiek/sponsors/`
+  - f2.png
+  - arche_hotel.png
+  - logo_brand_claim.png
+  - wrobel.png
 
 ### AKŻ Assets
 
-**Logo:** `assets/logos/akż/logo.png`
+**Logo:**
+- Current: `src/assets/logos/akż/logo.png`
+- Target: `src/assets/akz/logo.png`
 
 **Backgrounds:**
-- assets/bg/akz/1.png (current)
-- More can be added to bg/akz/ folder
+- Current: `src/assets/bg/akz/1.png`
+- Target: `src/assets/akz/backgrounds/1.png`
+- Additional backgrounds can be added later
 
 **Sponsors (9 total, all displayed as white in footer):**
 
-Ready to use:
-- Haj.png
-- roosters.png
-- wts.png
-- Grantland ver 1 (shadows).png
-- mcs.jpg
+Current location: `src/assets/logos/akż/`
+Target location: `src/assets/akz/sponsors/`
 
-Require conversion to PNG:
+Ready to use (no conversion needed):
+- Haj.png ✓
+- roosters.png ✓
+- wts.png ✓
+- Grantland ver 1 (shadows).png ✓
+
+Require conversion to PNG (target resolution: 1200px width, maintain aspect ratio, 72dpi):
+- mcs.jpg → mcs.png (convert JPEG to PNG for consistent filter behavior)
 - automax.pdf → automax.png
 - Betonlit.pdf → Betonlit.png
 - Causality-logos_black-_1_ (1).svg → Causality.png
 - rrspeedwayruszkiewicz.pdf → rrspeedway.png
 
-**Sponsor Display:** All sponsors filtered to white using CSS: `filter: brightness(0) invert(1)`
+**Conversion Method:** Use ImageMagick or similar tool with settings:
+```bash
+# For PDFs (extract first page, white background):
+convert -density 300 input.pdf[0] -background white -flatten -resize 1200x -quality 100 output.png
+
+# For SVG:
+convert -background none input.svg -resize 1200x output.png
+
+# For JPEG to PNG:
+convert input.jpg -resize 1200x -quality 100 output.png
+```
+
+**Sponsor Display:** All sponsors filtered to white using CSS: `filter: brightness(0) invert(1)` - works consistently on PNG format at 4K export resolution.
 
 ### Shared Assets
 
 **Club Logos (8, shared between riders):**
-- assets/logos/CZE.png (Włókniarz Częstochowa)
-- assets/logos/GOR.png (Stal Gorzów)
-- assets/logos/GRU.png (GKM Grudziądz)
-- assets/logos/LES.png (Unia Leszno)
-- assets/logos/LUB.png (Motor Lublin)
-- assets/logos/TOR.png (Apator Toruń)
-- assets/logos/WRO.png (Sparta Wrocław)
-- assets/logos/ZIE.png (Falubaz Zielona Góra)
+- Location: `src/assets/logos/` (keep in place, no reorganization needed)
+- CZE.png (Włókniarz Częstochowa)
+- GOR.png (Stal Gorzów)
+- GRU.png (GKM Grudziądz)
+- LES.png (Unia Leszno)
+- LUB.png (Motor Lublin)
+- TOR.png (Apator Toruń)
+- WRO.png (Sparta Wrocław)
+- ZIE.png (Falubaz Zielona Góra)
 
 ## Implementation Plan
 
@@ -365,13 +424,24 @@ Require conversion to PNG:
 1. Move current poster to `MisiekPoster.tsx`
 2. Extract config panel to shared component
 3. Create `MisiekPage.tsx` using new hooks
-4. Verify existing functionality works
+4. Verify existing functionality:
+   - Export at all 3 aspect ratios (9:16, 1:1, 4:5)
+   - Both layouts render correctly (wynik, match_day)
+   - All 9 backgrounds work
+   - Custom text dragging works
+   - Heats add/remove/edit works
+   - Club logos display correctly
 
 ### Phase 3: Asset Preparation
-1. Convert PDF sponsors to PNG (automax, Betonlit, rrspeedway)
-2. Convert SVG sponsor to PNG (Causality)
-3. Organize assets into rider-specific folders
-4. Create asset import maps
+1. Convert sponsors to PNG (see Asset Management section for conversion specs):
+   - mcs.jpg → mcs.png
+   - automax.pdf → automax.png
+   - Betonlit.pdf → Betonlit.png
+   - Causality SVG → Causality.png
+   - rrspeedwayruszkiewicz.pdf → rrspeedway.png
+2. Reorganize assets into rider-specific folders (misiek/, akz/)
+3. Create asset import maps for each rider
+4. Update import paths in MISIEK poster component
 
 ### Phase 4: AKŻ Implementation
 1. Create `AkzPoster.tsx` router component
