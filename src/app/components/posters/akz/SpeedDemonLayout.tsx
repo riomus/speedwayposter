@@ -406,11 +406,15 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                       : `linear-gradient(135deg, rgba(220, 38, 38, 0.13) 0%, rgba(0, 0, 0, 0.87) 100%)`,
                     border: `${fs(2)}px solid rgba(220, 38, 38, 0.4)`,
                     borderRadius: fs(8),
-                    padding: fs(10),
+                    paddingTop: fs(12),
+                    paddingBottom: fs(12),
+                    paddingLeft: fs(10),
+                    paddingRight: fs(10),
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
+                    gap: fs(6),
                     // Stagger every other heat
                     transform: isExporting ? undefined : (idx % 2 === 0 ? `translateY(${fs(-5)}) rotate(-1deg)` : `translateY(${fs(5)}) rotate(1deg)`),
                     boxShadow: isExporting ? 'none' : `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.6)`,
@@ -422,7 +426,6 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                       fontWeight: 700,
                       color: COLORS.YELLOW,
                       textTransform: "uppercase",
-                      marginBottom: fs(4),
                       letterSpacing: "0.05em",
                     }}
                   >
