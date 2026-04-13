@@ -61,31 +61,16 @@ const COLORS = {
 const getLogoFilter = (sponsorPath: string) => {
   const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
 
-  // Logos that don't work with standard white filter
-  // Use extreme brightness to blow out to pure white
-  const darkLogos = ['haj.png', 'wts.png', 'mcs.png', 'format.jpeg', 'format.jpg', 'rrspeedway.png'];
+  // Logos that look better in grayscale than binary white
+  const grayscaleLogos = ['haj.png', 'wts.png', 'mcs.png', 'format.jpeg', 'format.jpg', 'rrspeedway.png'];
 
-  if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
-    // Extreme brightness and contrast to force pure white
-    return 'brightness(10) contrast(5)';
+  if (grayscaleLogos.some(gray => filename.includes(gray.toLowerCase()))) {
+    // Grayscale with brightness and contrast boost
+    return 'grayscale(1) brightness(1.5) contrast(1.5)';
   }
 
   // For light logos: standard binary white filter
   return 'brightness(0) invert(1)';
-};
-
-// Helper function to get scale for logos with padding
-const getLogoScale = (sponsorPath: string) => {
-  const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
-
-  // Logos with excessive padding - zoom in to crop
-  const paddedLogos = ['roosters.png', 'causality.png', 'automax.png'];
-
-  if (paddedLogos.some(padded => filename.includes(padded.toLowerCase()))) {
-    return 1.3; // 30% zoom to crop padding
-  }
-
-  return 1; // No scaling for other logos
 };
 
 function DraggableText({
@@ -526,7 +511,6 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                     maxWidth: "100%",
                     objectFit: "contain",
                     filter: getLogoFilter(sponsor),
-                    transform: `scale(${getLogoScale(sponsor)})`,
                   }}
                 />
               </div>
