@@ -13,6 +13,7 @@ import sponsorAutomax from "../../../../assets/logos/akż/automax.png";
 import sponsorBetonlit from "../../../../assets/logos/akż/Betonlit.png";
 import sponsorCausality from "../../../../assets/logos/akż/Causality.png";
 import sponsorRrspeedway from "../../../../assets/logos/akż/rrspeedway.png";
+import sponsorFormat from "../../../../assets/logos/akż/format.jpeg";
 
 // Import club logos (shared)
 import logoCZE from "../../../../assets/logos/CZE.png";
@@ -45,6 +46,7 @@ const SPONSORS = [
   sponsorBetonlit,
   sponsorCausality,
   sponsorRrspeedway,
+  sponsorFormat,
 ];
 
 // AKŻ Brand Colors
@@ -68,6 +70,11 @@ const getLogoFilter = (sponsorPath: string) => {
 
   // mcs has white corners - invert to make them black, then brighten to make logo white
   if (filename.includes('mcs.png')) {
+    return 'invert(1) brightness(2.5) contrast(1.5)';
+  }
+
+  // format logo - remove background and make white
+  if (filename.includes('format.jpeg') || filename.includes('format.jpg')) {
     return 'invert(1) brightness(2.5) contrast(1.5)';
   }
 
