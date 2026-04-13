@@ -5,7 +5,7 @@ import "../styles/fonts.css";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/speedwayposter">
       <Routes>
         <Route path="/" element={<Navigate to="/misiek" replace />} />
         <Route path="/misiek" element={<MisiekPage />} />
