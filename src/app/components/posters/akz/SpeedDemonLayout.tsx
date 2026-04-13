@@ -237,30 +237,11 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           }}
         />
 
-        {/* === TOP SECTION: Logo Left === */}
+        {/* === TOP SECTION: Logo and Headers in same row === */}
         <div
           style={{
             position: "absolute",
             top: fs(20),
-            left: fs(20),
-            zIndex: 5,
-          }}
-        >
-          <img
-            src={logoAkz}
-            alt="AKŻ Logo"
-            style={{
-              height: fs(60),
-              filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))",
-            }}
-          />
-        </div>
-
-        {/* === HEADERS === */}
-        <div
-          style={{
-            position: "absolute",
-            top: fs(95),
             left: fs(20),
             right: fs(20),
             display: "flex",
@@ -269,31 +250,50 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             zIndex: 5,
           }}
         >
+          {/* AKŻ Logo */}
+          <img
+            src={logoAkz}
+            alt="AKŻ Logo"
+            style={{
+              height: fs(60),
+              filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))",
+            }}
+          />
+
+          {/* Headers: PL / EN */}
           <div
             style={{
-              fontSize: fs(16),
-              fontWeight: 700,
-              color: COLORS.WHITE,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              textShadow: `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
-              transform: "skewX(-5deg)",
+              display: "flex",
+              gap: fs(20),
+              alignItems: "center",
             }}
           >
-            {headerLeft}
-          </div>
-          <div
-            style={{
-              fontSize: fs(16),
-              fontWeight: 700,
-              color: COLORS.YELLOW,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              textShadow: `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
-              transform: "skewX(-5deg)",
-            }}
-          >
-            {headerRight}
+            <div
+              style={{
+                fontSize: fs(16),
+                fontWeight: 700,
+                color: COLORS.WHITE,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                textShadow: `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
+                transform: "skewX(-5deg)",
+              }}
+            >
+              {headerLeft}
+            </div>
+            <div
+              style={{
+                fontSize: fs(16),
+                fontWeight: 700,
+                color: COLORS.YELLOW,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                textShadow: `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
+                transform: "skewX(-5deg)",
+              }}
+            >
+              {headerRight}
+            </div>
           </div>
         </div>
 
