@@ -494,11 +494,11 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
         >
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              display: "flex",
+              flexWrap: "wrap",
               gap: fs(6),
               alignItems: "center",
-              justifyItems: "center",
+              justifyContent: "center",
             }}
           >
             {SPONSORS.map((sponsor, idx) => (
@@ -510,6 +510,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   justifyContent: "center",
                   padding: fs(6),
                   overflow: "hidden",
+                  flex: "0 0 23%",
                 }}
               >
                 <img
