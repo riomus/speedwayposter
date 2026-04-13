@@ -4,16 +4,16 @@ import { PosterProps, CustomText } from "../shared/types";
 // Import AKŻ assets
 import logoAkz from "../../../../assets/logos/akż/logo.png";
 import akzBg from "../../../../assets/bg/akz/1.png";
-import sponsorHaj from "../../../../assets/logos/akż/Haj.png";
-import sponsorRoosters from "../../../../assets/logos/akż/roosters.png";
-import sponsorWts from "../../../../assets/logos/akż/wts.png";
-import sponsorGrantland from "../../../../assets/logos/akż/Grantland ver 1 (shadows).png";
-import sponsorMcs from "../../../../assets/logos/akż/mcs.png";
-import sponsorAutomax from "../../../../assets/logos/akż/automax.png";
-import sponsorBetonlit from "../../../../assets/logos/akż/Betonlit.png";
-import sponsorCausality from "../../../../assets/logos/akż/Causality.png";
-import sponsorRrspeedway from "../../../../assets/logos/akż/rrspeedway.png";
-import sponsorFormat from "../../../../assets/logos/akż/format.jpeg";
+import sponsorHaj from "../../../../assets/logos/akż/processed-Haj.png";
+import sponsorRoosters from "../../../../assets/logos/akż/processed-roosters.png";
+import sponsorWts from "../../../../assets/logos/akż/processed-wts.png";
+import sponsorGrantland from "../../../../assets/logos/akż/processed-Grantland ver 1 (shadows).png";
+import sponsorMcs from "../../../../assets/logos/akż/processed-mcs.png";
+import sponsorAutomax from "../../../../assets/logos/akż/processed-automax.png";
+import sponsorBetonlit from "../../../../assets/logos/akż/processed-Betonlit.png";
+import sponsorCausality from "../../../../assets/logos/akż/processed-Causality.png";
+import sponsorRrspeedway from "../../../../assets/logos/akż/processed-rrspeedway.png";
+import sponsorFormat from "../../../../assets/logos/akż/processed-format.png";
 
 // Import club logos (shared)
 import logoCZE from "../../../../assets/logos/CZE.png";
@@ -55,32 +55,6 @@ const COLORS = {
   YELLOW: "#FBBF24",
   WHITE: "#FFFFFF",
   BLACK: "#000000",
-};
-
-// Helper function for conditional logo filtering
-const getLogoFilter = (sponsorPath: string) => {
-  const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
-
-  // mcs has white corners - invert to make them black, then grayscale
-  if (filename.includes('mcs.png')) {
-    return 'invert(1) grayscale(1) brightness(1.3) contrast(1.5)';
-  }
-
-  // format has full white background - invert to make it black
-  if (filename.includes('format.jpeg') || filename.includes('format.jpg')) {
-    return 'invert(1) grayscale(1) brightness(1.3) contrast(1.5)';
-  }
-
-  // Other grayscale logos (haj, wts, rrspeedway)
-  const grayscaleLogos = ['haj.png', 'wts.png', 'rrspeedway.png'];
-
-  if (grayscaleLogos.some(gray => filename.includes(gray.toLowerCase()))) {
-    // Grayscale with brightness and contrast boost
-    return 'grayscale(1) brightness(1.5) contrast(1.5)';
-  }
-
-  // For light logos: standard binary white filter
-  return 'brightness(0) invert(1)';
 };
 
 function DraggableText({
@@ -521,7 +495,6 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                     width: "auto",
                     maxWidth: "100%",
                     objectFit: "contain",
-                    filter: getLogoFilter(sponsor),
                   }}
                 />
               </div>
