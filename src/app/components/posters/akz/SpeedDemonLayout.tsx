@@ -488,7 +488,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             right: 0,
             background: COLORS.BLACK,
             borderTop: `${fs(3)}px solid ${COLORS.YELLOW}`,
-            padding: fs(16),
+            padding: fs(12),
             zIndex: 5,
           }}
         >
@@ -508,7 +508,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: fs(6),
+                  padding: fs(4),
                   overflow: "hidden",
                   flex: "0 0 23%",
                 }}
@@ -517,7 +517,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   src={sponsor}
                   alt={`Sponsor ${idx + 1}`}
                   style={{
-                    height: fs(70),
+                    height: fs(50),
                     width: "auto",
                     maxWidth: "100%",
                     objectFit: "contain",
