@@ -409,7 +409,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           <div
             style={{
               position: "absolute",
-              top: fs(aspectRatio === "1:1" ? 310 : aspectRatio === "4:5" ? 370 : 420),
+              top: fs(aspectRatio === "1:1" ? 280 : aspectRatio === "4:5" ? 370 : 420),
               left: fs(25),
               right: fs(25),
               zIndex: 5,
