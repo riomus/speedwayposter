@@ -60,15 +60,15 @@ const getLogoFilter = (sponsorPath: string) => {
   // Extract filename from path
   const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
 
-  // Problematic logos that are already dark/black
-  const darkLogos = ['mcs.png', 'rrspeedway.png', 'haj.png', 'wts.png'];
+  // Logos that need grayscale instead of binary white
+  const grayscaleLogos = ['mcs.png', 'rrspeedway.png', 'wts.png'];
 
-  if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
-    // For dark logos: don't invert, just brighten
-    return 'brightness(3) contrast(1.2)';
+  if (grayscaleLogos.some(gray => filename.includes(gray.toLowerCase()))) {
+    // For specific logos: use grayscale
+    return 'grayscale(1) contrast(1.2)';
   }
 
-  // For other logos: use standard white filter
+  // For all other logos: use binary white filter
   return 'brightness(0) invert(1)';
 };
 
