@@ -1,5 +1,5 @@
 import { useState, RefObject } from "react";
-import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image-more";
 
 export function usePosterExport() {
   const [exporting, setExporting] = useState(false);
@@ -9,30 +9,24 @@ export function usePosterExport() {
 
     setExporting(true);
     // Give React time to render the updated `isExporting` state and load fonts
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
-      const canvas = await html2canvas(ref.current, {
-        scale: 4,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#060b18",
-        logging: false,
-        letterRendering: true,
-        removeContainer: true,
-        imageTimeout: 0,
-        onclone: (clonedDoc) => {
-          // Ensure fonts are loaded in cloned document
-          const clonedElement = clonedDoc.querySelector('[data-export-target]');
-          if (clonedElement instanceof HTMLElement) {
-            clonedElement.style.fontFamily = "'Barlow Condensed', 'Oswald', sans-serif";
-          }
+      const dataUrl = await domtoimage.toPng(ref.current, {
+        quality: 1.0,
+        width: ref.current.offsetWidth * 4,
+        height: ref.current.offsetHeight * 4,
+        style: {
+          transform: 'scale(4)',
+          transformOrigin: 'top left',
+          width: ref.current.offsetWidth + 'px',
+          height: ref.current.offsetHeight + 'px',
         },
       });
 
       const link = document.createElement("a");
       link.download = filename;
-      link.href = canvas.toDataURL("image/png");
+      link.href = dataUrl;
       link.click();
     } catch (err) {
       console.error("Export error:", err);

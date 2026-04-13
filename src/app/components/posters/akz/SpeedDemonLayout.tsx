@@ -126,7 +126,7 @@ function DraggableText({
         userSelect: "none",
         whiteSpace: "nowrap",
         zIndex: 10,
-        transform: isExporting ? undefined : "rotate(-3deg)", // Slight angle for dynamic feel
+        transform: "rotate(-3deg)", // Slight angle for dynamic feel
       }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -247,7 +247,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 textShadow: `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
-                transform: isExporting ? undefined : "skewX(-5deg)",
+                transform: "skewX(-5deg)",
               }}
             >
               {headerLeft}
@@ -260,7 +260,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 textShadow: `0 ${fs(2)}px ${fs(6)}px rgba(0,0,0,0.8)`,
-                transform: isExporting ? undefined : "skewX(-5deg)",
+                transform: "skewX(-5deg)",
               }}
             >
               {headerRight}
@@ -279,7 +279,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             justifyContent: "space-between",
             alignItems: "center",
             zIndex: 5,
-            transform: isExporting ? undefined : "skewX(-3deg)", // Slight skew for motion
+            transform: "skewX(-3deg)", // Slight skew for motion
           }}
         >
           {/* Home Score */}
@@ -330,7 +330,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 color: COLORS.RED,
                 margin: `0 ${fs(20)}px`,
                 textShadow: `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.9)`,
-                transform: isExporting ? undefined : "rotate(-10deg)",
+                transform: "rotate(-10deg)",
               }}
             >
               :
@@ -406,10 +406,8 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                     borderRadius: fs(8),
                     padding: fs(10),
                     textAlign: "center",
-                    // Stagger every other heat (simplified for export)
-                    transform: isExporting
-                      ? undefined
-                      : idx % 2 === 0 ? `translateY(${fs(-5)}) rotate(-1deg)` : `translateY(${fs(5)}) rotate(1deg)`,
+                    // Stagger every other heat
+                    transform: idx % 2 === 0 ? `translateY(${fs(-5)}) rotate(-1deg)` : `translateY(${fs(5)}) rotate(1deg)`,
                     boxShadow: `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.6)`,
                   }}
                 >
