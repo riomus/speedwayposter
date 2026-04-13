@@ -9,10 +9,8 @@ const logosDir = join(__dirname, '../src/assets/logos/akż');
 // Logo processing rules based on filename
 const processingRules = {
   'mcs.png': {
-    // mcs has white corners - invert to black, then grayscale
-    type: 'invert-grayscale',
-    brightness: 1.3,
-    contrast: 1.5,
+    // mcs has white corners - invert to black background, make logo white
+    type: 'white',
   },
   'format.jpeg': {
     // format has full white background - invert to black
@@ -23,13 +21,11 @@ const processingRules = {
   'Haj.png': {
     // grayscale with brightness boost
     type: 'grayscale',
-    brightness: 1.5,
-    contrast: 1.5,
+    brightness: 2.0,
+    contrast: 1.8,
   },
   'wts.png': {
-    type: 'grayscale',
-    brightness: 1.5,
-    contrast: 1.5,
+    type: 'white',
   },
   'rrspeedway.png': {
     type: 'grayscale',
@@ -50,7 +46,13 @@ async function processLogo(filename) {
     let pipeline = sharp(inputPath);
 
     if (rule) {
-      if (rule.type === 'invert-grayscale') {
+      if (rule.type === 'white') {
+        // Make it pure white (threshold + invert)
+        pipeline = pipeline
+          .greyscale()
+          .threshold(128)
+          .negate({ alpha: false });
+      } else if (rule.type === 'invert-grayscale') {
         // Invert colors then convert to grayscale with brightness boost
         pipeline = pipeline
           .negate({ alpha: false })
