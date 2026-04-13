@@ -8,8 +8,8 @@ export function usePosterExport() {
     if (!ref.current) return;
 
     setExporting(true);
-    // Give React time to render the updated `isExporting` state in the DOM before capturing.
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Give React time to render the updated `isExporting` state and load fonts
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     try {
       const canvas = await html2canvas(ref.current, {
@@ -17,6 +17,17 @@ export function usePosterExport() {
         useCORS: true,
         allowTaint: true,
         backgroundColor: "#060b18",
+        logging: false,
+        letterRendering: true,
+        removeContainer: true,
+        imageTimeout: 0,
+        onclone: (clonedDoc) => {
+          // Ensure fonts are loaded in cloned document
+          const clonedElement = clonedDoc.querySelector('[data-export-target]');
+          if (clonedElement instanceof HTMLElement) {
+            clonedElement.style.fontFamily = "'Barlow Condensed', 'Oswald', sans-serif";
+          }
+        },
       });
 
       const link = document.createElement("a");
