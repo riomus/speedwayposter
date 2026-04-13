@@ -59,7 +59,17 @@ const COLORS = {
 
 // Helper function for conditional logo filtering
 const getLogoFilter = (sponsorPath: string) => {
-  // All logos should be binary white - use standard white filter
+  const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
+
+  // Logos that don't work with standard white filter (dark backgrounds/dark logos)
+  const darkLogos = ['haj.png', 'wts.png', 'mcs.png', 'format.jpeg', 'format.jpg', 'rrspeedway.png'];
+
+  if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
+    // For dark logos: invert first, then brighten to white
+    return 'invert(1) brightness(3) contrast(2)';
+  }
+
+  // For light logos: standard binary white filter
   return 'brightness(0) invert(1)';
 };
 
