@@ -3,7 +3,7 @@ import { PosterProps, CustomText } from "../shared/types";
 
 // Import AKŻ assets
 import logoAkz from "../../../../assets/logos/akż/logo.png";
-import akzBg from "../../../../assets/bg/akz/1-4k.png";
+import akzBg from "../../../../assets/bg/akz/1.png";
 import sponsorHaj from "../../../../assets/logos/akż/processed-Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/processed-roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/processed-wts.png";
