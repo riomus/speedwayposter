@@ -204,7 +204,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           style={{
             position: "absolute",
             inset: 0,
-            background: `radial-gradient(ellipse at 70% 20%, ${COLORS.RED}22 0%, ${COLORS.BLACK} 60%)`,
+            background: `radial-gradient(ellipse at 70% 20%, rgba(220, 38, 38, 0.13) 0%, ${COLORS.BLACK} 60%)`,
           }}
         />
 
@@ -401,8 +401,8 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 <div
                   key={heat.id}
                   style={{
-                    background: `linear-gradient(135deg, ${COLORS.RED}22 0%, ${COLORS.BLACK}DD 100%)`,
-                    border: `${fs(2)}px solid ${COLORS.RED}66`,
+                    background: `linear-gradient(135deg, rgba(220, 38, 38, 0.13) 0%, rgba(0, 0, 0, 0.87) 100%)`,
+                    border: `${fs(2)}px solid rgba(220, 38, 38, 0.4)`,
                     borderRadius: fs(8),
                     padding: fs(10),
                     textAlign: "center",
