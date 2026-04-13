@@ -342,7 +342,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 filter: homeWins ? `drop-shadow(0 0 ${fs(20)}px ${COLORS.YELLOW})` : "none",
               }}
             >
-              {homeScoreNum !== null ? homeScoreNum : "–"}
+              {homeScoreNum !== null ? homeScoreNum : ""}
             </div>
           </div>
 
@@ -398,7 +398,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   filter: awayWins ? `drop-shadow(0 0 ${fs(20)}px ${COLORS.YELLOW})` : "none",
                 }}
               >
-                {awayScoreNum !== null ? awayScoreNum : "–"}
+                {awayScoreNum !== null ? awayScoreNum : ""}
               </div>
             </div>
           )}
