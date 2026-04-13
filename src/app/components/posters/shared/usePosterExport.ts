@@ -14,14 +14,6 @@ export function usePosterExport() {
     try {
       const dataUrl = await domtoimage.toPng(ref.current, {
         quality: 1.0,
-        width: ref.current.offsetWidth * 4,
-        height: ref.current.offsetHeight * 4,
-        style: {
-          transform: 'scale(4)',
-          transformOrigin: 'top left',
-          width: ref.current.offsetWidth + 'px',
-          height: ref.current.offsetHeight + 'px',
-        },
       });
 
       const link = document.createElement("a");

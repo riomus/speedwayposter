@@ -203,7 +203,7 @@ export default function AkzPage() {
                 overflow: "hidden",
               }}
             >
-              <AkzPoster ref={posterRef} config={config} scale={1} isExporting={exporting} onCustomTextMove={moveCustomText} />
+              <AkzPoster ref={posterRef} config={config} scale={exporting ? 4 : 1} isExporting={exporting} onCustomTextMove={moveCustomText} />
             </div>
 
             <div
