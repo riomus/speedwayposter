@@ -59,32 +59,22 @@ const COLORS = {
 
 // Helper function for conditional logo filtering
 const getLogoFilter = (sponsorPath: string) => {
-  // Extract filename from path
+  // All logos should be binary white - use standard white filter
+  return 'brightness(0) invert(1)';
+};
+
+// Helper function to get scale for logos with padding
+const getLogoScale = (sponsorPath: string) => {
   const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
 
-  // rrspeedway has gray background - needs special treatment
-  if (filename.includes('rrspeedway.png')) {
-    // Blow out gray background to white while keeping dark text
-    return 'grayscale(1) brightness(1.8) contrast(2)';
+  // Logos with excessive padding - zoom in to crop
+  const paddedLogos = ['roosters.png', 'causality.png', 'automax.png'];
+
+  if (paddedLogos.some(padded => filename.includes(padded.toLowerCase()))) {
+    return 1.3; // 30% zoom to crop padding
   }
 
-  // mcs has white corners - invert to make them black, then brighten to make logo white
-  if (filename.includes('mcs.png')) {
-    return 'invert(1) brightness(2.5) contrast(1.5)';
-  }
-
-  // format logo - remove background and make white
-  if (filename.includes('format.jpeg') || filename.includes('format.jpg')) {
-    return 'invert(1) brightness(2.5) contrast(1.5)';
-  }
-
-  // Other grayscale logos (haj, wts)
-  if (filename.includes('haj.png') || filename.includes('wts.png')) {
-    return 'grayscale(1) contrast(1.2)';
-  }
-
-  // For all other logos: use binary white filter
-  return 'brightness(0) invert(1)';
+  return 1; // No scaling for other logos
 };
 
 function DraggableText({
@@ -499,8 +489,8 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: fs(12),
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: fs(6),
               alignItems: "center",
               justifyItems: "center",
             }}
@@ -512,7 +502,8 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: fs(8),
+                  padding: fs(6),
+                  overflow: "hidden",
                 }}
               >
                 <img
@@ -524,6 +515,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                     maxWidth: "100%",
                     objectFit: "contain",
                     filter: getLogoFilter(sponsor),
+                    transform: `scale(${getLogoScale(sponsor)})`,
                   }}
                 />
               </div>
