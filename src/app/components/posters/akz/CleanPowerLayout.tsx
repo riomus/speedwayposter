@@ -57,6 +57,23 @@ const COLORS = {
   black: "#000000",
 };
 
+// Helper function for conditional logo filtering
+const getLogoFilter = (sponsorPath: string) => {
+  // Extract filename from path
+  const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
+
+  // Problematic logos that are already dark/black
+  const darkLogos = ['mcs.png', 'rrspeedway.png', 'haj.png', 'wts.png'];
+
+  if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
+    // For dark logos: don't invert, just brighten
+    return 'brightness(3) contrast(1.2)';
+  }
+
+  // For other logos: use standard white filter
+  return 'brightness(0) invert(1)';
+};
+
 function DraggableText({
   ct,
   scale,
@@ -172,10 +189,10 @@ export const CleanPowerLayout = forwardRef<HTMLDivElement, PosterProps>(
     const fs = (size: number) => size * scale;
 
     // Determine winner for yellow highlight
-    const homeScore = parseFloat(scoreHome) || 0;
-    const awayScore = parseFloat(scoreAway) || 0;
-    const homeWins = homeScore > awayScore;
-    const awayWins = awayScore > homeScore;
+    const homeScoreNum = scoreHome ? parseFloat(scoreHome) : null;
+    const awayScoreNum = scoreAway ? parseFloat(scoreAway) : null;
+    const homeWins = homeScoreNum !== null && awayScoreNum !== null && homeScoreNum > awayScoreNum;
+    const awayWins = homeScoreNum !== null && awayScoreNum !== null && awayScoreNum > homeScoreNum;
 
     // Single team mode detection
     const isSingleTeam = !homeTeamName || !awayTeamName;
@@ -391,7 +408,7 @@ export const CleanPowerLayout = forwardRef<HTMLDivElement, PosterProps>(
                   : `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.7)`,
               }}
             >
-              {scoreHome}
+              {homeScoreNum !== null ? homeScoreNum : "–"}
             </div>
 
             {!isSingleTeam && (
@@ -416,7 +433,7 @@ export const CleanPowerLayout = forwardRef<HTMLDivElement, PosterProps>(
                       : `0 ${fs(4)}px ${fs(12)}px rgba(0,0,0,0.7)`,
                   }}
                 >
-                  {scoreAway}
+                  {awayScoreNum !== null ? awayScoreNum : "–"}
                 </div>
               </>
             )}
@@ -562,11 +579,11 @@ export const CleanPowerLayout = forwardRef<HTMLDivElement, PosterProps>(
                   src={sponsor}
                   alt={`Sponsor ${idx + 1}`}
                   style={{
-                    height: fs(40),
+                    height: fs(70),
                     width: "auto",
                     maxWidth: "100%",
                     objectFit: "contain",
-                    filter: "brightness(0) invert(1)", // White filter
+                    filter: getLogoFilter(sponsor),
                   }}
                 />
               </div>

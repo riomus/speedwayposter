@@ -55,6 +55,23 @@ const COLORS = {
   BLACK: "#000000",
 };
 
+// Helper function for conditional logo filtering
+const getLogoFilter = (sponsorPath: string) => {
+  // Extract filename from path
+  const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
+
+  // Problematic logos that are already dark/black
+  const darkLogos = ['mcs.png', 'rrspeedway.png', 'haj.png', 'wts.png'];
+
+  if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
+    // For dark logos: don't invert, just brighten
+    return 'brightness(3) contrast(1.2)';
+  }
+
+  // For other logos: use standard white filter
+  return 'brightness(0) invert(1)';
+};
+
 function DraggableText({
   ct,
   scale,
@@ -155,8 +172,10 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
     const hasAway = !!config.awayTeamName;
     const singleTeamMode = (hasHome && !hasAway) || (!hasHome && hasAway);
 
-    const homeWins = parseInt(scoreHome || "0") > parseInt(scoreAway || "0");
-    const awayWins = parseInt(scoreHome || "0") < parseInt(scoreAway || "0");
+    const homeScoreNum = scoreHome ? parseInt(scoreHome) : null;
+    const awayScoreNum = scoreAway ? parseInt(scoreAway) : null;
+    const homeWins = homeScoreNum !== null && awayScoreNum !== null && homeScoreNum > awayScoreNum;
+    const awayWins = homeScoreNum !== null && awayScoreNum !== null && awayScoreNum > homeScoreNum;
 
     const BASE_W = 540;
     const ASPECT_HEIGHTS: Record<string, number> = {
@@ -369,7 +388,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                 filter: homeWins ? `drop-shadow(0 0 ${fs(20)}px ${COLORS.YELLOW})` : "none",
               }}
             >
-              {scoreHome || "0"}
+              {homeScoreNum !== null ? homeScoreNum : "–"}
             </div>
           </div>
 
@@ -425,7 +444,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   filter: awayWins ? `drop-shadow(0 0 ${fs(20)}px ${COLORS.YELLOW})` : "none",
                 }}
               >
-                {scoreAway || "0"}
+                {awayScoreNum !== null ? awayScoreNum : "–"}
               </div>
             </div>
           )}
@@ -542,11 +561,11 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   src={sponsor}
                   alt={`Sponsor ${idx + 1}`}
                   style={{
-                    height: fs(40),
+                    height: fs(70),
                     width: "auto",
                     maxWidth: "100%",
                     objectFit: "contain",
-                    filter: "brightness(0) invert(1)", // White filter
+                    filter: getLogoFilter(sponsor),
                   }}
                 />
               </div>

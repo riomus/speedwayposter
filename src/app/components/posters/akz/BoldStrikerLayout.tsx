@@ -130,6 +130,23 @@ function DraggableText({
   );
 }
 
+// Helper function for conditional logo filtering
+const getLogoFilter = (sponsorPath: string) => {
+  // Extract filename from path
+  const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
+
+  // Problematic logos that are already dark/black
+  const darkLogos = ['mcs.png', 'rrspeedway.png', 'haj.png', 'wts.png'];
+
+  if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
+    // For dark logos: don't invert, just brighten
+    return 'brightness(3) contrast(1.2)';
+  }
+
+  // For other logos: use standard white filter
+  return 'brightness(0) invert(1)';
+};
+
 export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
   ({ config, scale = 1, isExporting = false, onCustomTextMove }, ref) => {
     const BASE_W = 540;
@@ -153,10 +170,10 @@ export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
     const singleTeamMode = !config.homeTeamName || !config.awayTeamName;
 
     // Winner detection for yellow glow
-    const homeScore = parseInt(config.scoreHome) || 0;
-    const awayScore = parseInt(config.scoreAway) || 0;
-    const homeWins = homeScore > awayScore;
-    const awayWins = awayScore > homeScore;
+    const homeScore = config.scoreHome ? parseInt(config.scoreHome) : null;
+    const awayScore = config.scoreAway ? parseInt(config.scoreAway) : null;
+    const homeWins = homeScore !== null && awayScore !== null && homeScore > awayScore;
+    const awayWins = homeScore !== null && awayScore !== null && awayScore > homeScore;
 
     return (
       <div
@@ -299,7 +316,7 @@ export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
                   filter: homeWins ? `drop-shadow(0 0 ${fs(20)}px ${COLORS.yellow})` : "none",
                 }}
               >
-                {config.scoreHome}
+                {homeScore !== null ? homeScore : "–"}
               </div>
             </div>
 
@@ -362,7 +379,7 @@ export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
                     filter: awayWins ? `drop-shadow(0 0 ${fs(20)}px ${COLORS.yellow})` : "none",
                   }}
                 >
-                  {config.scoreAway}
+                  {awayScore !== null ? awayScore : "–"}
                 </div>
               </div>
             )}
@@ -464,11 +481,11 @@ export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
                 src={sponsor}
                 alt={`Sponsor ${idx + 1}`}
                 style={{
-                  height: fs(40),
+                  height: fs(70),
                   width: "auto",
                   maxWidth: "100%",
                   objectFit: "contain",
-                  filter: "brightness(0) invert(1)",
+                  filter: getLogoFilter(sponsor),
                 }}
               />
             </div>
