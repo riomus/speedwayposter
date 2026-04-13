@@ -61,12 +61,13 @@ const COLORS = {
 const getLogoFilter = (sponsorPath: string) => {
   const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
 
-  // Logos that don't work with standard white filter (dark backgrounds/dark logos)
+  // Logos that don't work with standard white filter
+  // Use extreme brightness to blow out to pure white
   const darkLogos = ['haj.png', 'wts.png', 'mcs.png', 'format.jpeg', 'format.jpg', 'rrspeedway.png'];
 
   if (darkLogos.some(dark => filename.includes(dark.toLowerCase()))) {
-    // For dark logos: invert first, then brighten to white
-    return 'invert(1) brightness(3) contrast(2)';
+    // Extreme brightness and contrast to force pure white
+    return 'brightness(10) contrast(5)';
   }
 
   // For light logos: standard binary white filter
