@@ -61,8 +61,18 @@ const COLORS = {
 const getLogoFilter = (sponsorPath: string) => {
   const filename = sponsorPath.split('/').pop()?.toLowerCase() || '';
 
-  // Logos that look better in grayscale than binary white
-  const grayscaleLogos = ['haj.png', 'wts.png', 'mcs.png', 'format.jpeg', 'format.jpg', 'rrspeedway.png'];
+  // mcs has white corners - invert to make them black, then grayscale
+  if (filename.includes('mcs.png')) {
+    return 'invert(1) grayscale(1) brightness(1.3) contrast(1.5)';
+  }
+
+  // format has full white background - invert to make it black
+  if (filename.includes('format.jpeg') || filename.includes('format.jpg')) {
+    return 'invert(1) grayscale(1) brightness(1.3) contrast(1.5)';
+  }
+
+  // Other grayscale logos (haj, wts, rrspeedway)
+  const grayscaleLogos = ['haj.png', 'wts.png', 'rrspeedway.png'];
 
   if (grayscaleLogos.some(gray => filename.includes(gray.toLowerCase()))) {
     // Grayscale with brightness and contrast boost
