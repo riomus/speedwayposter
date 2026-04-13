@@ -3,6 +3,7 @@ import { PosterProps, CustomText } from "../shared/types";
 
 // AKŻ Logo
 import logoAKZ from "../../../../assets/logos/akż/logo.png";
+import akzBg from "../../../../assets/bg/akz/1.png";
 
 // Club logos (shared across all riders)
 import logoCZE from "../../../../assets/logos/CZE.png";
@@ -195,6 +196,17 @@ export const CleanPowerLayout = forwardRef<HTMLDivElement, PosterProps>(
           background: COLORS.black,
         }}
       >
+        {/* Background image */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${akzBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
         {/* Background with subtle red radial gradient */}
         <div
           style={{
@@ -528,26 +540,36 @@ export const CleanPowerLayout = forwardRef<HTMLDivElement, PosterProps>(
           {/* Sponsors Grid */}
           <div
             style={{
-              padding: `${fs(20)}px ${fs(15)}px`,
+              padding: `${fs(16)}px ${fs(12)}px`,
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: `${fs(15)}px ${fs(10)}px`,
+              gap: `${fs(12)}px`,
               alignItems: "center",
               justifyItems: "center",
             }}
           >
             {SPONSORS.map((sponsor, idx) => (
-              <img
+              <div
                 key={idx}
-                src={sponsor}
-                alt={`Sponsor ${idx + 1}`}
                 style={{
-                  maxWidth: "90%",
-                  maxHeight: `${fs(35)}px`,
-                  objectFit: "contain",
-                  filter: "brightness(0) invert(1)", // White filter
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: fs(8),
                 }}
-              />
+              >
+                <img
+                  src={sponsor}
+                  alt={`Sponsor ${idx + 1}`}
+                  style={{
+                    height: fs(40),
+                    width: "auto",
+                    maxWidth: "100%",
+                    objectFit: "contain",
+                    filter: "brightness(0) invert(1)", // White filter
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>

@@ -3,6 +3,7 @@ import { PosterProps, CustomText } from "../shared/types";
 
 // Import AKŻ assets
 import logoAkz from "../../../../assets/logos/akż/logo.png";
+import akzBg from "../../../../assets/bg/akz/1.png";
 import sponsorHaj from "../../../../assets/logos/akż/Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/wts.png";
@@ -182,6 +183,17 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           flexShrink: 0,
         }}
       >
+        {/* === BACKGROUND IMAGE === */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${akzBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
         {/* === BACKGROUND: Red-to-Black Gradient === */}
         <div
           style={{
@@ -503,7 +515,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             right: 0,
             background: COLORS.BLACK,
             borderTop: `${fs(3)}px solid ${COLORS.YELLOW}`,
-            padding: fs(15),
+            padding: fs(16),
             zIndex: 5,
           }}
         >
@@ -517,18 +529,27 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             }}
           >
             {SPONSORS.map((sponsor, idx) => (
-              <img
+              <div
                 key={idx}
-                src={sponsor}
-                alt={`Sponsor ${idx + 1}`}
                 style={{
-                  maxHeight: fs(35),
-                  maxWidth: "90%",
-                  objectFit: "contain",
-                  filter: "brightness(0) invert(1)", // White filter
-                  opacity: 0.9,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: fs(8),
                 }}
-              />
+              >
+                <img
+                  src={sponsor}
+                  alt={`Sponsor ${idx + 1}`}
+                  style={{
+                    height: fs(40),
+                    width: "auto",
+                    maxWidth: "100%",
+                    objectFit: "contain",
+                    filter: "brightness(0) invert(1)", // White filter
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>

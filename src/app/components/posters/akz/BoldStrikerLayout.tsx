@@ -3,6 +3,7 @@ import { PosterProps, CustomText } from "../shared/types";
 
 // AKŻ Assets
 import akzLogo from "../../../../assets/logos/akż/logo.png";
+import akzBg from "../../../../assets/bg/akz/1.png";
 import sponsorHaj from "../../../../assets/logos/akż/Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/wts.png";
@@ -169,6 +170,17 @@ export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
           backgroundColor: COLORS.black,
         }}
       >
+        {/* Background image */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${akzBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
         {/* Background with diagonal red stripe */}
         <div
           style={{
@@ -434,7 +446,7 @@ export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
             gridTemplateRows: "repeat(3, 1fr)",
-            gap: fs(8),
+            gap: fs(12),
             padding: fs(16),
           }}
         >
@@ -445,14 +457,16 @@ export const BoldStrikerLayout = forwardRef<HTMLDivElement, PosterProps>(
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                padding: fs(8),
               }}
             >
               <img
                 src={sponsor}
                 alt={`Sponsor ${idx + 1}`}
                 style={{
-                  maxWidth: "90%",
-                  maxHeight: "90%",
+                  height: fs(40),
+                  width: "auto",
+                  maxWidth: "100%",
                   objectFit: "contain",
                   filter: "brightness(0) invert(1)",
                 }}
