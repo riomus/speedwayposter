@@ -459,10 +459,10 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
                       textAlign: singleTeamMode ? ("center" as const) : undefined,
                     }}
                   >
-                    {scoreHome || "0"}
+                    {scoreHome}
                   </span>
                 )}
-                {!singleTeamMode && (
+                {!singleTeamMode && (scoreHome || scoreAway) && (
                   <span
                     style={{
                       color: "#1e6db5",
@@ -491,7 +491,7 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
                       textAlign: singleTeamMode ? ("center" as const) : undefined,
                     }}
                   >
-                    {scoreAway || "0"}
+                    {scoreAway}
                   </span>
                 )}
               </div>
