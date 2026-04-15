@@ -28,6 +28,8 @@ export interface PosterConfig {
   backgroundImageId?: string;
   homeLogoId?: string;
   awayLogoId?: string;
+  showHome?: boolean;
+  showAway?: boolean;
   layoutId?: string;          // Rider-specific layout options
   aspectRatio?: string;       // '9:16' | '1:1' | '4:5'
   customTexts?: CustomText[];

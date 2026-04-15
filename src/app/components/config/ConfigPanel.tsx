@@ -108,6 +108,33 @@ export function ConfigPanel({
             onChange={(v) => updateConfig("teamName", v)}
             placeholder="MISIEK RACING"
           />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            {(["showHome", "showAway"] as const).map((key, i) => (
+              <label
+                key={key}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  cursor: "pointer",
+                  color: "#9ab8d8",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  userSelect: "none",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={config[key] ?? true}
+                  onChange={(e) => setConfig((c) => ({ ...c, [key]: e.target.checked }))}
+                  style={{ accentColor: "#1e6db5", width: 15, height: 15 }}
+                />
+                {i === 0 ? "Gospodarze" : "Goście"}
+              </label>
+            ))}
+          </div>
           <div
             style={{
               display: "grid",
@@ -116,14 +143,14 @@ export function ConfigPanel({
             }}
           >
             <Field
-              label="Gospodarze"
+              label="Wynik (Gosp.)"
               value={config.scoreHome}
               onChange={(v) => updateConfig("scoreHome", v)}
               placeholder="45"
               type="number"
             />
             <Field
-              label="Goście"
+              label="Wynik (Goście)"
               value={config.scoreAway}
               onChange={(v) => updateConfig("scoreAway", v)}
               placeholder="45"

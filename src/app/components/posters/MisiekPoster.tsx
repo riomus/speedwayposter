@@ -187,7 +187,9 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
 
     const hasHome = !!config.homeTeamName;
     const hasAway = !!config.awayTeamName;
-    const singleTeamMode = (hasHome && !hasAway) || (!hasHome && hasAway);
+    const showHome = config.showHome ?? true;
+    const showAway = config.showAway ?? true;
+    const singleTeamMode = (showHome && !showAway) || (!showHome && showAway);
 
     const homeWins = parseInt(scoreHome || "0") > parseInt(scoreAway || "0");
     const awayWins = parseInt(scoreHome || "0") < parseInt(scoreAway || "0");
@@ -417,23 +419,39 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
                 alignItems: "center",
                 gap: fs(12),
                 lineHeight: 1,
-                width: singleTeamMode ? "100%" : undefined,
               }}
             >
-              {hasHome && homeLogoId && homeLogoId !== "none" && CLUB_LOGOS_MAP[homeLogoId] && (
-                <img
-                  src={CLUB_LOGOS_MAP[homeLogoId]}
-                  alt="Home Logo"
-                  style={{
-                    marginTop: isExporting ? fs(42) : 0,
-                    transform: isExporting ? `translateY(${fs(16)}px)` : "none",
-                    height: fs(76),
-                    width: "auto",
-                    flexShrink: 0,
-                    objectFit: "contain",
-                    filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`,
-                  }}
-                />
+              {showHome && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, gap: fs(4) }}>
+                  {homeLogoId && homeLogoId !== "none" && CLUB_LOGOS_MAP[homeLogoId] && (
+                    <img
+                      src={CLUB_LOGOS_MAP[homeLogoId]}
+                      alt="Home Logo"
+                      style={{
+                        marginTop: isExporting ? fs(42) : 0,
+                        transform: isExporting ? `translateY(${fs(16)}px)` : "none",
+                        height: fs(76),
+                        width: "auto",
+                        objectFit: "contain",
+                        filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`,
+                      }}
+                    />
+                  )}
+                  {homeTeamName && (
+                    <span
+                      style={{
+                        color: "#9ab8d8",
+                        fontSize: fs(13),
+                        fontWeight: 700,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        textAlign: "center",
+                      }}
+                    >
+                      {homeTeamName}
+                    </span>
+                  )}
+                </div>
               )}
               <div
                 style={{
@@ -441,10 +459,9 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
                   alignItems: "baseline",
                   gap: fs(8),
                   lineHeight: 1,
-                  flex: singleTeamMode ? 1 : undefined,
                 }}
               >
-                {hasHome && (
+                {showHome && (
                   <span
                     style={{
                       color: homeWins ? "#f5c518" : "#ffffff",
@@ -455,14 +472,12 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
                         ? `0 0 ${fs(30)}px rgba(245,197,24,0.4), 0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`
                         : `0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`,
                       lineHeight: 1,
-                      flex: singleTeamMode ? 1 : undefined,
-                      textAlign: singleTeamMode ? ("center" as const) : undefined,
                     }}
                   >
                     {scoreHome}
                   </span>
                 )}
-                {!singleTeamMode && (scoreHome || scoreAway) && (
+                {showHome && showAway && (scoreHome || scoreAway) && (
                   <span
                     style={{
                       color: "#1e6db5",
@@ -476,7 +491,7 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
                     :
                   </span>
                 )}
-                {hasAway && (
+                {showAway && (
                   <span
                     style={{
                       color: awayWins ? "#f5c518" : "#ffffff",
@@ -487,28 +502,43 @@ export const MisiekPoster = forwardRef<HTMLDivElement, PosterProps>(
                         ? `0 0 ${fs(30)}px rgba(245,197,24,0.4), 0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`
                         : `0 ${fs(4)}px ${fs(20)}px rgba(0,0,0,0.9)`,
                       lineHeight: 1,
-                      flex: singleTeamMode ? 1 : undefined,
-                      textAlign: singleTeamMode ? ("center" as const) : undefined,
                     }}
                   >
                     {scoreAway}
                   </span>
                 )}
               </div>
-              {hasAway && awayLogoId && awayLogoId !== "none" && CLUB_LOGOS_MAP[awayLogoId] && (
-                <img
-                  src={CLUB_LOGOS_MAP[awayLogoId]}
-                  alt="Away Logo"
-                  style={{
-                    marginTop: isExporting ? fs(42) : 0,
-                    transform: isExporting ? `translateY(${fs(16)}px)` : "none",
-                    height: fs(76),
-                    width: "auto",
-                    flexShrink: 0,
-                    objectFit: "contain",
-                    filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`,
-                  }}
-                />
+              {showAway && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, gap: fs(4) }}>
+                  {awayLogoId && awayLogoId !== "none" && CLUB_LOGOS_MAP[awayLogoId] && (
+                    <img
+                      src={CLUB_LOGOS_MAP[awayLogoId]}
+                      alt="Away Logo"
+                      style={{
+                        marginTop: isExporting ? fs(42) : 0,
+                        transform: isExporting ? `translateY(${fs(16)}px)` : "none",
+                        height: fs(76),
+                        width: "auto",
+                        objectFit: "contain",
+                        filter: `drop-shadow(0 ${fs(4)}px ${fs(16)}px rgba(0,0,0,0.8))`,
+                      }}
+                    />
+                  )}
+                  {awayTeamName && (
+                    <span
+                      style={{
+                        color: "#9ab8d8",
+                        fontSize: fs(13),
+                        fontWeight: 700,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        textAlign: "center",
+                      }}
+                    >
+                      {awayTeamName}
+                    </span>
+                  )}
+                </div>
               )}
             </div>
           )}

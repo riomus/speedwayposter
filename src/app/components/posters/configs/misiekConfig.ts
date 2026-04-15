@@ -31,6 +31,8 @@ const defaultConfig: PosterConfig = {
   backgroundImageId: "1",
   homeLogoId: "none",
   awayLogoId: "none",
+  showHome: true,
+  showAway: true,
   layoutId: "wynik",
   aspectRatio: "9:16",
   customTexts: [],
