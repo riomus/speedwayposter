@@ -337,7 +337,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
           </div>
 
           {/* Separator */}
-          {!singleTeamMode && (
+          {!singleTeamMode && (scoreHome || scoreAway) && (
             <div
               style={{
                 fontSize: fs(60),
