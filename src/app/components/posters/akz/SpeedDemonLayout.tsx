@@ -17,6 +17,7 @@ import sponsorBetonlit from "../../../../assets/logos/akż/processed-Betonlit.pn
 import sponsorCausality from "../../../../assets/logos/akż/processed-Causality.png";
 import sponsorRrspeedway from "../../../../assets/logos/akż/processed-rrspeedway.png";
 import sponsorFormat from "../../../../assets/logos/akż/processed-format.png";
+import sponsorObiad from "../../../../assets/logos/akż/processed-obiad.png";
 
 // Import club logos (shared)
 import logoCZE from "../../../../assets/logos/CZE.png";
@@ -57,6 +58,7 @@ const SPONSORS = [
   sponsorCausality,
   sponsorRrspeedway,
   sponsorFormat,
+  sponsorObiad,
 ];
 
 // AKŻ Brand Colors
@@ -483,7 +485,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             right: 0,
             background: COLORS.BLACK,
             borderTop: `${fs(3)}px solid ${COLORS.YELLOW}`,
-            padding: fs(12),
+            padding: fs(6),
             zIndex: 5,
           }}
         >
@@ -491,7 +493,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
             style={{
               display: "flex",
               flexWrap: "wrap",
-              gap: fs(6),
+              gap: fs(2),
               alignItems: "center",
               justifyContent: "center",
             }}
@@ -503,7 +505,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: fs(4),
+                  padding: fs(1),
                   overflow: "hidden",
                   flex: "0 0 23%",
                 }}
@@ -512,7 +514,7 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   src={sponsor}
                   alt={`Sponsor ${idx + 1}`}
                   style={{
-                    height: fs(35),
+                    height: fs(48),
                     width: "auto",
                     maxWidth: "100%",
                     objectFit: "contain",

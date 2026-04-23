@@ -56,6 +56,7 @@ export const akzConfig: RiderConfig = {
     "logos/akż/processed-Causality.png",
     "logos/akż/processed-rrspeedway.png",
     "logos/akż/processed-format.png",
+    "logos/akż/processed-obiad.png",
   ],
   primaryColor: "#DC2626",
   accentColor: "#FBBF24",
