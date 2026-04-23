@@ -3,7 +3,10 @@ import { PosterProps, CustomText } from "../shared/types";
 
 // Import AKŻ assets
 import logoAkz from "../../../../assets/logos/akż/logo.png";
-import akzBg from "../../../../assets/bg/akz/1.png";
+import akzBg1 from "../../../../assets/bg/akz/1.png";
+import akzBg2 from "../../../../assets/bg/akz/2.png";
+import akzBg3 from "../../../../assets/bg/akz/3.png";
+import akzBg4 from "../../../../assets/bg/akz/4.png";
 import sponsorHaj from "../../../../assets/logos/akż/processed-Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/processed-roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/processed-wts.png";
@@ -24,6 +27,13 @@ import logoLUB from "../../../../assets/logos/LUB.png";
 import logoTOR from "../../../../assets/logos/TOR.png";
 import logoWRO from "../../../../assets/logos/WRO.png";
 import logoZIE from "../../../../assets/logos/ZIE.png";
+
+const AKZ_BG_MAP: Record<string, string> = {
+  "1": akzBg1,
+  "2": akzBg2,
+  "3": akzBg3,
+  "4": akzBg4,
+};
 
 const CLUB_LOGOS_MAP: Record<string, string> = {
   CZE: logoCZE,
@@ -151,7 +161,10 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
       awayTeamName = "GOŚCIE",
       aspectRatio = "9:16",
       customTexts = [],
+      backgroundImageId,
     } = config;
+
+    const akzBg = AKZ_BG_MAP[backgroundImageId || "1"] || akzBg1;
 
     const hasHome = !!config.homeTeamName;
     const hasAway = !!config.awayTeamName;

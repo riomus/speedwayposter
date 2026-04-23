@@ -10,6 +10,8 @@ import riderImg6 from "../../../assets/bg/bg6.png";
 import riderImg7 from "../../../assets/bg/bg7.png";
 import riderImg8 from "../../../assets/bg/bg8.png";
 import riderImg9 from "../../../assets/bg/bg9.png";
+import riderImg10 from "../../../assets/misiek_n.png";
+import riderImg11 from "../../../assets/misiek_n2.png";
 
 import logoCZE from "../../../assets/logos/CZE.png";
 import logoGOR from "../../../assets/logos/GOR.png";
@@ -47,6 +49,8 @@ const BG_IMAGES: Record<string, string> = {
   "7": riderImg7,
   "8": riderImg8,
   "9": riderImg9,
+  "10": riderImg10,
+  "11": riderImg11,
 };
 
 // objectPosition per image to best frame the rider
@@ -60,6 +64,8 @@ const BG_POSITIONS: Record<string, string> = {
   "7": "center center",
   "8": "center center",
   "9": "center center",
+  "10": "center center",
+  "11": "center center",
 };
 
 // For portrait images use "cover" (fills height, may crop sides).
@@ -78,6 +84,8 @@ const BG_MODE: Record<
   "7": { mode: "cover", verticalOffset: "0%" },
   "8": { mode: "cover", verticalOffset: "0%" },
   "9": { mode: "cover", verticalOffset: "0%" },
+  "10": { mode: "cover", verticalOffset: "0%" },
+  "11": { mode: "cover", verticalOffset: "0%" },
 };
 
 function DraggableText({

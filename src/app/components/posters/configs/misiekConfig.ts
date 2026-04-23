@@ -8,6 +8,8 @@ import bgThumb6 from "../../../../assets/bg/bg6.png";
 import bgThumb7 from "../../../../assets/bg/bg7.png";
 import bgThumb8 from "../../../../assets/bg/bg8.png";
 import bgThumb9 from "../../../../assets/bg/bg9.png";
+import bgThumb10 from "../../../../assets/misiek_n.png";
+import bgThumb11 from "../../../../assets/misiek_n2.png";
 
 const defaultHeats = [
   { id: "1", name: "BIEG 1", scoreHome: "3" },
@@ -52,6 +54,8 @@ export const misiekConfig: RiderConfig = {
     { id: "7", label: "Wariant 7", thumb: bgThumb7 },
     { id: "8", label: "Wariant 8", thumb: bgThumb8 },
     { id: "9", label: "Wariant 9", thumb: bgThumb9 },
+    { id: "10", label: "Misiek N", thumb: bgThumb10 },
+    { id: "11", label: "Misiek N2", thumb: bgThumb11 },
   ],
   layouts: [
     { id: "wynik", label: "Wyniki (Wynik)" },
