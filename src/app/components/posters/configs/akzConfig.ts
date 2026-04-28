@@ -3,6 +3,9 @@ import bgThumb1 from "../../../../assets/bg/akz/1.png";
 import bgThumb2 from "../../../../assets/bg/akz/2.png";
 import bgThumb3 from "../../../../assets/bg/akz/3.png";
 import bgThumb4 from "../../../../assets/bg/akz/4.png";
+import bgThumb5 from "../../../../assets/bg/akz/5.png";
+import bgThumb6 from "../../../../assets/bg/akz/6.png";
+import bgThumb7 from "../../../../assets/bg/akz/7.png";
 
 const defaultHeats = [
   { id: "1", name: "BIEG 1", scoreHome: "5" },
@@ -40,6 +43,9 @@ export const akzConfig: RiderConfig = {
     { id: "2", label: "AKŻ Background 2", thumb: bgThumb2 },
     { id: "3", label: "AKŻ Background 3", thumb: bgThumb3 },
     { id: "4", label: "AKŻ Background 4", thumb: bgThumb4 },
+    { id: "5", label: "AKŻ Background 5", thumb: bgThumb5 },
+    { id: "6", label: "AKŻ Background 6", thumb: bgThumb6 },
+    { id: "7", label: "AKŻ Background 7", thumb: bgThumb7 },
   ],
   layouts: [
     { id: "speed_demon", label: "Speed Demon" },
