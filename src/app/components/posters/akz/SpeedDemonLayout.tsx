@@ -10,6 +10,7 @@ import akzBg4 from "../../../../assets/bg/akz/4.png";
 import akzBg5 from "../../../../assets/bg/akz/5.png";
 import akzBg6 from "../../../../assets/bg/akz/6.png";
 import akzBg7 from "../../../../assets/bg/akz/7.png";
+import akzBg8 from "../../../../assets/bg/akz/8.png";
 import sponsorHaj from "../../../../assets/logos/akż/processed-Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/processed-roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/processed-wts.png";
@@ -40,6 +41,7 @@ const AKZ_BG_MAP: Record<string, string> = {
   "5": akzBg5,
   "6": akzBg6,
   "7": akzBg7,
+  "8": akzBg8,
 };
 
 const CLUB_LOGOS_MAP: Record<string, string> = {
@@ -514,16 +516,19 @@ export const SpeedDemonLayout = forwardRef<HTMLDivElement, PosterProps>(
                   padding: fs(1),
                   overflow: "hidden",
                   flex: "0 0 23%",
+                  height: fs(48),
                 }}
               >
-                <img
-                  src={sponsor}
-                  alt={`Sponsor ${idx + 1}`}
+                <div
+                  role="img"
+                  aria-label={`Sponsor ${idx + 1}`}
                   style={{
-                    height: fs(48),
-                    width: "auto",
-                    maxWidth: "100%",
-                    objectFit: "contain",
+                    width: "100%",
+                    height: "100%",
+                    backgroundImage: `url(${sponsor})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    backgroundSize: "contain",
                   }}
                 />
               </div>
