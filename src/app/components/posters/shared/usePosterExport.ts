@@ -1,5 +1,5 @@
 import { useState, RefObject } from "react";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 
 export function usePosterExport() {
   const [exporting, setExporting] = useState(false);
@@ -8,23 +8,42 @@ export function usePosterExport() {
     if (!ref.current) return;
 
     setExporting(true);
-    // Give React time to render the updated `isExporting` state and load fonts
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // Let React commit the `isExporting=true` render
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
+    // Make sure every webfont weight used in the posters is fully loaded.
+    // Otherwise the snapshot can capture a frame using a fallback font with
+    // different vertical metrics, shifting text positions.
+    if (typeof document !== "undefined" && (document as any).fonts?.load) {
+      try {
+        const fonts = (document as any).fonts;
+        await Promise.all([
+          fonts.load(`400 16px "Barlow Condensed"`),
+          fonts.load(`600 16px "Barlow Condensed"`),
+          fonts.load(`700 16px "Barlow Condensed"`),
+          fonts.load(`800 16px "Barlow Condensed"`),
+          fonts.load(`900 16px "Barlow Condensed"`),
+          fonts.load(`700 16px "Oswald"`),
+        ]);
+        await fonts.ready;
+      } catch {
+        /* ignore */
+      }
+    }
+    await new Promise((resolve) => requestAnimationFrame(() => resolve(null)));
 
     try {
-      const canvas = await html2canvas(ref.current, {
-        scale: 1,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: null,
-        logging: false,
-        windowWidth: ref.current.scrollWidth,
-        windowHeight: ref.current.scrollHeight,
+      const node = ref.current;
+      const dataUrl = await toPng(node, {
+        cacheBust: true,
+        pixelRatio: 1,
+        width: node.offsetWidth,
+        height: node.offsetHeight,
       });
 
       const link = document.createElement("a");
       link.download = filename;
-      link.href = canvas.toDataURL("image/png");
+      link.href = dataUrl;
       link.click();
     } catch (err) {
       console.error("Export error:", err);

@@ -61,8 +61,8 @@ export function ConfigPanel({
             onChange={(v) => {
               setConfig((c) => {
                 const next = { ...c, layoutId: v };
-                // Auto-update headers for MISIEK layouts
-                if (riderConfig.riderId === "misiek") {
+                // Auto-update headers for layouts that support match_day
+                if (riderConfig.riderId === "misiek" || riderConfig.riderId === "kh118") {
                   if (v === "match_day") {
                     if (c.headerLeft === "WYNIKI MECZU") next.headerLeft = "DZIEŃ MECZOWY";
                     if (c.headerRight === "MATCH RESULTS") next.headerRight = "MATCH DAY";
@@ -135,6 +135,54 @@ export function ConfigPanel({
               </label>
             ))}
           </div>
+          {riderConfig.riderId === "kh118" && (
+            <>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  cursor: "pointer",
+                  color: "#9ab8d8",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  userSelect: "none",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={config.showU24Logo ?? false}
+                  onChange={(e) => setConfig((c) => ({ ...c, showU24Logo: e.target.checked }))}
+                  style={{ accentColor: "#1D4ED8", width: 15, height: 15 }}
+                />
+                Logo U-24 Ekstraliga
+              </label>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  cursor: "pointer",
+                  color: "#9ab8d8",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  userSelect: "none",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={config.compactRiderLogo ?? false}
+                  onChange={(e) => setConfig((c) => ({ ...c, compactRiderLogo: e.target.checked }))}
+                  style={{ accentColor: "#1D4ED8", width: 15, height: 15 }}
+                />
+                Logo KH118 małe (róg)
+              </label>
+            </>
+          )}
           <div
             style={{
               display: "grid",

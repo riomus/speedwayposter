@@ -30,6 +30,8 @@ export interface PosterConfig {
   awayLogoId?: string;
   showHome?: boolean;
   showAway?: boolean;
+  showU24Logo?: boolean;      // kh118: render U-24 Ekstraliga logo next to rider logo
+  compactRiderLogo?: boolean; // kh118: render rider logo small (top-left corner) instead of hero size
   layoutId?: string;          // Rider-specific layout options
   aspectRatio?: string;       // '9:16' | '1:1' | '4:5'
   customTexts?: CustomText[];
