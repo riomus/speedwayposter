@@ -14,7 +14,7 @@ import akzBg8 from "../../../../assets/bg/akz/8.png";
 import sponsorHaj from "../../../../assets/logos/akż/processed-Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/processed-roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/processed-wts.png";
-import sponsorGrantland from "../../../../assets/logos/akż/processed-Grantland ver 1 (shadows).png";
+import sponsorGrantland from "../../../../assets/logos/akż/processed-grantland.png";
 import sponsorMcs from "../../../../assets/logos/akż/processed-mcs.png";
 import sponsorAutomax from "../../../../assets/logos/akż/processed-automax.png";
 import sponsorBetonlit from "../../../../assets/logos/akż/processed-Betonlit.png";
@@ -22,6 +22,7 @@ import sponsorCausality from "../../../../assets/logos/akż/processed-Causality.
 import sponsorRrspeedway from "../../../../assets/logos/akż/processed-rrspeedway.png";
 import sponsorFormat from "../../../../assets/logos/akż/processed-format.png";
 import sponsorObiad from "../../../../assets/logos/akż/processed-obiad.png";
+import sponsorWirga from "../../../../assets/logos/akż/processed-wirga.png";
 
 // Import club logos (shared)
 import logoCZE from "../../../../assets/logos/CZE.png";
@@ -67,6 +68,7 @@ const SPONSORS = [
   sponsorRrspeedway,
   sponsorFormat,
   sponsorObiad,
+  sponsorWirga,
 ];
 
 // AKŻ Brand Colors
