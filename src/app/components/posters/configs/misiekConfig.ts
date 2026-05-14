@@ -1,15 +1,23 @@
 import { RiderConfig, PosterConfig } from "../shared/types";
-import bgThumb1 from "../../../../assets/a9f444eda0b68d242315e46ad4c961ed74f42334.png";
-import bgThumb2 from "../../../../assets/633cb56e126361bd8bafb54b2dc4059b83ba5b67.png";
-import bgThumb3 from "../../../../assets/a58ea5c412dbad40193fcd735703fe4be406ebd5.png";
-import bgThumb4 from "../../../../assets/5bb7d630512919f24bd2c3a692eb7f93e17f393a.png";
-import bgThumb5 from "../../../../assets/bg/bg5.png";
-import bgThumb6 from "../../../../assets/bg/bg6.png";
-import bgThumb7 from "../../../../assets/bg/bg7.png";
-import bgThumb8 from "../../../../assets/bg/bg8.png";
-import bgThumb9 from "../../../../assets/bg/bg9.png";
-import bgThumb10 from "../../../../assets/misiek_n.png";
-import bgThumb11 from "../../../../assets/misiek_n2.png";
+import bgThumb1 from "../../../../assets/bg/misiek/1.png";
+import bgThumb2 from "../../../../assets/bg/misiek/2.png";
+import bgThumb3 from "../../../../assets/bg/misiek/3.png";
+import bgThumb4 from "../../../../assets/bg/misiek/4.png";
+import bgThumb5 from "../../../../assets/bg/misiek/5.png";
+import bgThumb6 from "../../../../assets/bg/misiek/6.png";
+import bgThumb7 from "../../../../assets/bg/misiek/7.png";
+import bgThumb8 from "../../../../assets/bg/misiek/8.png";
+import bgThumb9 from "../../../../assets/bg/misiek/9.png";
+import bgThumb10 from "../../../../assets/bg/misiek/10.png";
+import bgThumb11 from "../../../../assets/bg/misiek/11.png";
+import bgThumb12 from "../../../../assets/bg/misiek/12.png";
+import bgThumb13 from "../../../../assets/bg/misiek/13.png";
+import bgThumb14 from "../../../../assets/bg/misiek/14.png";
+import bgThumb15 from "../../../../assets/bg/misiek/15.png";
+import bgThumb16 from "../../../../assets/bg/misiek/16.png";
+import bgThumb17 from "../../../../assets/bg/misiek/17.png";
+import bgThumb18 from "../../../../assets/bg/misiek/18.png";
+import bgThumb19 from "../../../../assets/bg/misiek/19.png";
 
 const defaultHeats = [
   { id: "1", name: "BIEG 1", scoreHome: "3" },
@@ -56,6 +64,14 @@ export const misiekConfig: RiderConfig = {
     { id: "9", label: "Wariant 9", thumb: bgThumb9 },
     { id: "10", label: "Misiek N", thumb: bgThumb10 },
     { id: "11", label: "Misiek N2", thumb: bgThumb11 },
+    { id: "12", label: "Wariant 12", thumb: bgThumb12 },
+    { id: "13", label: "Wariant 13", thumb: bgThumb13 },
+    { id: "14", label: "Wariant 14", thumb: bgThumb14 },
+    { id: "15", label: "Wariant 15", thumb: bgThumb15 },
+    { id: "16", label: "Wariant 16", thumb: bgThumb16 },
+    { id: "17", label: "Wariant 17", thumb: bgThumb17 },
+    { id: "18", label: "Wariant 18", thumb: bgThumb18 },
+    { id: "19", label: "Wariant 19", thumb: bgThumb19 },
   ],
   layouts: [
     { id: "wynik", label: "Wyniki (Wynik)" },

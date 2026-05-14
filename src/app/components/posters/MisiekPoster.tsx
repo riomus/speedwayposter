@@ -1,17 +1,25 @@
 import React, { forwardRef, useCallback, useRef } from "react";
 import { PosterProps, CustomText } from "./shared/types";
 import logoImg from "../../../assets/7e44f37685ad3f3cf69ea7a3d89ed6e9c1d46460.png";
-import riderImg1 from "../../../assets/a9f444eda0b68d242315e46ad4c961ed74f42334.png";
-import riderImg2 from "../../../assets/633cb56e126361bd8bafb54b2dc4059b83ba5b67.png";
-import riderImg3 from "../../../assets/a58ea5c412dbad40193fcd735703fe4be406ebd5.png";
-import riderImg4 from "../../../assets/5bb7d630512919f24bd2c3a692eb7f93e17f393a.png";
-import riderImg5 from "../../../assets/bg/bg5.png";
-import riderImg6 from "../../../assets/bg/bg6.png";
-import riderImg7 from "../../../assets/bg/bg7.png";
-import riderImg8 from "../../../assets/bg/bg8.png";
-import riderImg9 from "../../../assets/bg/bg9.png";
-import riderImg10 from "../../../assets/misiek_n.png";
-import riderImg11 from "../../../assets/misiek_n2.png";
+import riderImg1 from "../../../assets/bg/misiek/1.png";
+import riderImg2 from "../../../assets/bg/misiek/2.png";
+import riderImg3 from "../../../assets/bg/misiek/3.png";
+import riderImg4 from "../../../assets/bg/misiek/4.png";
+import riderImg5 from "../../../assets/bg/misiek/5.png";
+import riderImg6 from "../../../assets/bg/misiek/6.png";
+import riderImg7 from "../../../assets/bg/misiek/7.png";
+import riderImg8 from "../../../assets/bg/misiek/8.png";
+import riderImg9 from "../../../assets/bg/misiek/9.png";
+import riderImg10 from "../../../assets/bg/misiek/10.png";
+import riderImg11 from "../../../assets/bg/misiek/11.png";
+import riderImg12 from "../../../assets/bg/misiek/12.png";
+import riderImg13 from "../../../assets/bg/misiek/13.png";
+import riderImg14 from "../../../assets/bg/misiek/14.png";
+import riderImg15 from "../../../assets/bg/misiek/15.png";
+import riderImg16 from "../../../assets/bg/misiek/16.png";
+import riderImg17 from "../../../assets/bg/misiek/17.png";
+import riderImg18 from "../../../assets/bg/misiek/18.png";
+import riderImg19 from "../../../assets/bg/misiek/19.png";
 
 import logoCZE from "../../../assets/logos/CZE.png";
 import logoGOR from "../../../assets/logos/GOR.png";
@@ -51,6 +59,14 @@ const BG_IMAGES: Record<string, string> = {
   "9": riderImg9,
   "10": riderImg10,
   "11": riderImg11,
+  "12": riderImg12,
+  "13": riderImg13,
+  "14": riderImg14,
+  "15": riderImg15,
+  "16": riderImg16,
+  "17": riderImg17,
+  "18": riderImg18,
+  "19": riderImg19,
 };
 
 // objectPosition per image to best frame the rider
@@ -66,6 +82,14 @@ const BG_POSITIONS: Record<string, string> = {
   "9": "center center",
   "10": "center center",
   "11": "center center",
+  "12": "center center",
+  "13": "center center",
+  "14": "center center",
+  "15": "center center",
+  "16": "center center",
+  "17": "center center",
+  "18": "center center",
+  "19": "center center",
 };
 
 // For portrait images use "cover" (fills height, may crop sides).
@@ -86,6 +110,14 @@ const BG_MODE: Record<
   "9": { mode: "cover", verticalOffset: "0%" },
   "10": { mode: "cover", verticalOffset: "0%" },
   "11": { mode: "cover", verticalOffset: "0%" },
+  "12": { mode: "cover", verticalOffset: "0%" },
+  "13": { mode: "cover", verticalOffset: "0%" },
+  "14": { mode: "cover", verticalOffset: "0%" },
+  "15": { mode: "cover", verticalOffset: "0%" },
+  "16": { mode: "cover", verticalOffset: "0%" },
+  "17": { mode: "cover", verticalOffset: "0%" },
+  "18": { mode: "cover", verticalOffset: "0%" },
+  "19": { mode: "cover", verticalOffset: "0%" },
 };
 
 function DraggableText({

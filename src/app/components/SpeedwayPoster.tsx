@@ -1,14 +1,14 @@
 import React, { forwardRef, useCallback, useRef, useState } from "react";
 import logoImg from "../../assets/7e44f37685ad3f3cf69ea7a3d89ed6e9c1d46460.png";
-import riderImg1 from "../../assets/a9f444eda0b68d242315e46ad4c961ed74f42334.png";
-import riderImg2 from "../../assets/633cb56e126361bd8bafb54b2dc4059b83ba5b67.png";
-import riderImg3 from "../../assets/a58ea5c412dbad40193fcd735703fe4be406ebd5.png";
-import riderImg4 from "../../assets/5bb7d630512919f24bd2c3a692eb7f93e17f393a.png";
-import riderImg5 from "../../assets/bg/bg5.png";
-import riderImg6 from "../../assets/bg/bg6.png";
-import riderImg7 from "../../assets/bg/bg7.png";
-import riderImg8 from "../../assets/bg/bg8.png";
-import riderImg9 from "../../assets/bg/bg9.png";
+import riderImg1 from "../../assets/bg/misiek/1.png";
+import riderImg2 from "../../assets/bg/misiek/2.png";
+import riderImg3 from "../../assets/bg/misiek/3.png";
+import riderImg4 from "../../assets/bg/misiek/4.png";
+import riderImg5 from "../../assets/bg/misiek/5.png";
+import riderImg6 from "../../assets/bg/misiek/6.png";
+import riderImg7 from "../../assets/bg/misiek/7.png";
+import riderImg8 from "../../assets/bg/misiek/8.png";
+import riderImg9 from "../../assets/bg/misiek/9.png";
 
 import logoCZE from "../../assets/logos/CZE.png";
 import logoGOR from "../../assets/logos/GOR.png";
