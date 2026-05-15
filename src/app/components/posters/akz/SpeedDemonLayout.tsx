@@ -17,6 +17,8 @@ import akzBg11 from "../../../../assets/bg/akz/11.png";
 import akzBg12 from "../../../../assets/bg/akz/12.png";
 import akzBg13 from "../../../../assets/bg/akz/13.png";
 import akzBg14 from "../../../../assets/bg/akz/14.png";
+import akzBg15 from "../../../../assets/bg/akz/15.png";
+import akzBg16 from "../../../../assets/bg/akz/16.png";
 import sponsorHaj from "../../../../assets/logos/akż/processed-Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/processed-roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/processed-wts.png";
@@ -55,6 +57,8 @@ const AKZ_BG_MAP: Record<string, string> = {
   "12": akzBg12,
   "13": akzBg13,
   "14": akzBg14,
+  "15": akzBg15,
+  "16": akzBg16,
 };
 
 const CLUB_LOGOS_MAP: Record<string, string> = {
