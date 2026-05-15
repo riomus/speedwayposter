@@ -11,6 +11,12 @@ import akzBg5 from "../../../../assets/bg/akz/5.png";
 import akzBg6 from "../../../../assets/bg/akz/6.png";
 import akzBg7 from "../../../../assets/bg/akz/7.png";
 import akzBg8 from "../../../../assets/bg/akz/8.png";
+import akzBg9 from "../../../../assets/bg/akz/9.png";
+import akzBg10 from "../../../../assets/bg/akz/10.png";
+import akzBg11 from "../../../../assets/bg/akz/11.png";
+import akzBg12 from "../../../../assets/bg/akz/12.png";
+import akzBg13 from "../../../../assets/bg/akz/13.png";
+import akzBg14 from "../../../../assets/bg/akz/14.png";
 import sponsorHaj from "../../../../assets/logos/akż/processed-Haj.png";
 import sponsorRoosters from "../../../../assets/logos/akż/processed-roosters.png";
 import sponsorWts from "../../../../assets/logos/akż/processed-wts.png";
@@ -43,6 +49,12 @@ const AKZ_BG_MAP: Record<string, string> = {
   "6": akzBg6,
   "7": akzBg7,
   "8": akzBg8,
+  "9": akzBg9,
+  "10": akzBg10,
+  "11": akzBg11,
+  "12": akzBg12,
+  "13": akzBg13,
+  "14": akzBg14,
 };
 
 const CLUB_LOGOS_MAP: Record<string, string> = {
